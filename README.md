@@ -1,1 +1,1 @@
-# order-eatz
+# order-eatz-frontend
