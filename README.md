@@ -17,5 +17,5 @@
 | /api/orders/:id         | delete         | DELETE        | delete          |                   
 | /api/orders/:id         | show           | SHOW          | read            |         
 | /api/orders/            | create         | POST          | create          |   
-| /api/orders/:id         | update         | POST          | update          |                   
+| /api/orders/:id         | update         | PATCH          | update          |                   
 | /api/user/:id/orders    | index          | GET           | read            | 
