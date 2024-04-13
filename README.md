@@ -13,7 +13,7 @@
 | /api/user/:id           | update         | PATCH         | update          |         
 | /api/user               | create         | POST          | create          |        
 | /api/user/:id           | delete         | DELETE        | delete          |          
-| /api/user/login         | create         | POST          | authentication  |                    
+| /api/login              | create         | POST          | authentication  |                    
 | /api/orders/:id         | delete         | DELETE        | delete          |                   
 | /api/orders/:id         | show           | SHOW          | read            |         
 | /api/orders/            | create         | POST          | create          |   
