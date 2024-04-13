@@ -1,8 +1,8 @@
 # order-eatz-frontend
 |       **URL**           | **REST Route** | **HTTP Verb** | **CRUD Action** |   
 | ----------------------- | -------------- | ------------- | --------------- | 
-| /api/food/:id/reviews   | index          | GET           | read            | 
-| /api/user/:id/reviews   | index          | GET           | read            | 
+| /api/reviews/food/:id   | index          | GET           | read            | 
+| /api/reviews/user/:id   | index          | GET           | read            | 
 | /api/reviews/:id        | show           | GET           | read            | 
 | /api/reviews/:id        | update         | PATCH         | update          | 
 | /api/reviews            | create         | POST          | create          |   
@@ -18,4 +18,4 @@
 | /api/orders/:id         | show           | SHOW          | read            |         
 | /api/orders/            | create         | POST          | create          |   
 | /api/orders/:id         | update         | PATCH          | update          |                   
-| /api/user/:id/orders    | index          | GET           | read            | 
+| /api/orders/user/:id    | index          | GET           | read            | 
