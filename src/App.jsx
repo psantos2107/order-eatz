@@ -11,7 +11,6 @@ function App() {
   return (
   <>
     <Header />
-      <Router>
       <div>
         <HomeNav /> {/* Render HomeNav component for navigation */}
         <Routes>
@@ -20,7 +19,6 @@ function App() {
           <Route path="/food/:id" element={<FoodDetailsComponent />} /> {/* Render FoodDetailsComponent for the food details route */}
         </Routes>
       </div>
-    </Router>
     <Footer />
   </>
   );
