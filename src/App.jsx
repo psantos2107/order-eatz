@@ -4,10 +4,14 @@ import MenuComponent from './components/AllFoodMenu';
 import FoodDetailsComponent from './components/FoodDetails';
 import HomeNav from './components/HomeNav';
 import Welcome from './components/Welcome'; 
+import Header from "./components/NavBar"
+import Footer from "./components/Footer"
 
 function App() {
   return (
-    <Router>
+  <>
+    <Header />
+      <Router>
       <div>
         <HomeNav /> {/* Render HomeNav component for navigation */}
         <Routes>
@@ -17,6 +21,8 @@ function App() {
         </Routes>
       </div>
     </Router>
+    <Footer />
+  </>
   );
 }
 
