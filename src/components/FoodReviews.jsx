@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
+import Review from "./Review";
 
 const FoodReviews = () => {
   const [foodReviews, setFoodReviews] = useState([]);
@@ -35,16 +36,7 @@ const FoodReviews = () => {
         ) : (
           <section>
             {foodReviews.map((review) => {
-              return (
-                <article key={review._id}>
-                  <h2>
-                    <strong>{review.title}</strong>
-                  </h2>
-                  <p>{review.content}</p>
-                  <p>Rating: {review.rating}/5</p>
-                  <p>By: {review.createdBy.username}</p>
-                </article>
-              );
+              return <Review review={review} />;
             })}
           </section>
         )}
