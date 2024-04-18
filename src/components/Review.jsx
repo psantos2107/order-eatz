@@ -1,4 +1,5 @@
 import { useState } from "react";
+import EditReview from "./EditReview";
 
 const Review = ({ review }) => {
   const [editMode, setEditMode] = useState(false);
@@ -6,6 +7,8 @@ const Review = ({ review }) => {
   function handleDelete() {
     //..code here to handle delete!
     console.log("Will be implemented later when I have the capacity.");
+    //(1) delete from database
+    //(2) reset the reviews array to display reviews minus the deleted review
   }
 
   function handleClick() {
@@ -26,10 +29,7 @@ const Review = ({ review }) => {
           <button onClick={() => handleDelete()}>Delete Review</button>
         </article>
       ) : (
-        <article>
-          <h2>In Edit mode</h2>
-          <button onClick={() => handleClick()}>Submit Review</button>
-        </article>
+        <EditReview review={review} />
       )}
     </>
   );

@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
-const CreateReview = () => {
-  const [inputTitle, setTitle] = useState("");
-  const [inputBody, setBody] = useState("");
-  const [inputRating, setRating] = useState("4");
+const EditReview = ({ review }) => {
+  const [inputTitle, setTitle] = useState(review.title);
+  const [inputBody, setBody] = useState(review.content);
+  const [inputRating, setRating] = useState(review.rating);
   const [error, setError] = useState("");
-  const { foodID } = useParams();
   const URL = "http://localhost:3000/api";
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    async function postReview() {
+    async function updateReview() {
       try {
-        await fetch(`${URL}/reviews`, {
-          method: "POST",
+        await fetch(`${URL}/reviews/${review._id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -23,18 +21,17 @@ const CreateReview = () => {
             title: inputTitle,
             content: inputBody,
             rating: inputRating,
-            foodItem: foodID,
           }),
         });
         //SET STATE FOR THE REVIEWS ARRAY HERE (adding a review to the UI)! (YOU WILL LIKELY HAVE TO LIFT UP STATE AND PASS SET REVIEWS DOWN AS PROPS)
       } catch (error) {
         setError(
-          "Something went wrong with submitting the review. Please try again."
+          "Something went wrong with editing the review. Please try again."
         );
         return;
       }
     }
-    postReview();
+    updateReview();
   }
 
   return (
@@ -73,4 +70,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default EditReview;
