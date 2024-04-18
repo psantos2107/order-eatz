@@ -11,17 +11,19 @@ function App() {
   return (
     <>
       <Header />
-      <div>
-        <HomeNav /> {/* Render HomeNav component for navigation */}
-        <Routes>
-          <Route path="/" element={<Welcome />} />{" "}
-          {/* Render WelcomePage for the home route */}
-          <Route path="/food" element={<MenuComponent />} />{" "}
-          {/* Render MenuComponent for the menu route */}
-          <Route path="/food/:id" element={<FoodDetailsComponent />} />{" "}
-          {/* Render FoodDetailsComponent for the food details route */}
-        </Routes>
-      </div>
+      <Router>
+        <div>
+          <HomeNav /> {/* Render HomeNav component for navigation */}
+          <Routes>
+            <Route path="/" element={<Welcome />} />{" "}
+            {/* Render WelcomePage for the home route */}
+            <Route path="/food" element={<MenuComponent />} />{" "}
+            {/* Render MenuComponent for the menu route */}
+            <Route path="/food/:id" element={<FoodDetailsComponent />} />{" "}
+            {/* Render FoodDetailsComponent for the food details route */}
+          </Routes>
+        </div>
+      </Router>
       <Footer />
     </>
   );
