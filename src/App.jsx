@@ -11,7 +11,6 @@ function App() {
   return (
   <>
     <Header />
-      <Router>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -29,7 +28,6 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-    </Router>
     <Footer />
   </>
   );
