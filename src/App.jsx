@@ -1,3 +1,6 @@
+import Header from "./components/NavBar"
+import Footer from "./components/Footer"
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuComponent from './components/AllFoodMenu';
@@ -7,17 +10,29 @@ import Welcome from './components/Welcome';
 
 function App() {
   return (
-    <Router>
+    <>
       <div>
-        <HomeNav /> {/* Render HomeNav component for navigation */}
-        <Routes>
-          <Route path="/" element={<Welcome />} /> {/* Render WelcomePage for the home route */}
-          <Route path="/food" element={<MenuComponent />} /> {/* Render MenuComponent for the menu route */}
-          <Route path="/food/:id" element={<FoodDetailsComponent />} /> {/* Render FoodDetailsComponent for the food details route */}
-        </Routes>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-    </Router>
-  );
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
 export default App;
