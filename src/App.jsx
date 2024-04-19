@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import OrderPage from "./pages/OrderPage";
 import Header from "./components/NavBar";
 import Footer from "./components/Footer";
+import FinalizeOrder from "./components/FinalizeOrder";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/food" element={<MenuPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/food/:id" element={<FoodShowPage />} />
+          <Route path="/checkout" element={<FinalizeOrder />} />
           {/* Render FoodDetailsComponent for the food details route */}
         </Routes>
       </div>
