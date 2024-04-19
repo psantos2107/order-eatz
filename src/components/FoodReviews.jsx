@@ -20,7 +20,7 @@ const FoodReviews = () => {
       console.error("Fetch error:", error);
       setError("Unable to fetch reviews at this time.");
     }
-  }, [foodID]); // `fetchReviews` now only changes if foodID changes
+  }, [foodID]); //`fetchReviews` now only changes if foodID changes
 
   useEffect(() => {
     fetchReviews();
@@ -36,7 +36,13 @@ const FoodReviews = () => {
         ) : (
           <section>
             {foodReviews.map((review) => {
-              return <Review review={review} />;
+              return (
+                <Review
+                  review={review}
+                  setFoodReviews={setFoodReviews}
+                  foodReviews={foodReviews}
+                />
+              );
             })}
           </section>
         )}
@@ -70,6 +76,4 @@ When you need to pass a function as props to a child component.
 If you have a function that is expensive to compute and you need to call it in multiple places.
 When dealing with functional components.
 When you are working with a function that relies on external data or state.
-Note: Given the scenarios highlighted above, it’s still important to weigh the benefits and drawbacks of the hook and use it judiciously only where needed.
-
-*/
+Note: Given the scenarios highlighted above, it’s still important to weigh the benefits and drawbacks of the hook and use it judiciously only where needed. */
