@@ -10,7 +10,7 @@ import Footer from "./components/Footer"
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       
         <div>
           <HomeNav /> {/* Render HomeNav component for navigation */}
