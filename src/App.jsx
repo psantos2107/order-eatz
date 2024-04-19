@@ -1,16 +1,17 @@
-import Header from "./components/NavBar"
-import Footer from "./components/Footer"
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuComponent from './components/AllFoodMenu';
 import FoodDetailsComponent from './components/FoodDetails';
 import HomeNav from './components/HomeNav';
 import Welcome from './components/Welcome'; 
+import Header from "./components/NavBar"
+import Footer from "./components/Footer"
 
 function App() {
   return (
-    <>
+  <>
+    <Header />
+      <Router>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -28,11 +29,10 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+    <Footer />
+  </>
+  );
 }
 
 export default App;
