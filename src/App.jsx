@@ -7,7 +7,7 @@ import FoodShowPage from "./pages/FoodShowPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import SignUpPage from "./pages/SignUpPage";
 import OrderPage from "./pages/OrderPage";
-import Header from "./components/NavBar";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FinalizeOrder from "./components/FinalizeOrder";
 
