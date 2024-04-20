@@ -1,39 +1,42 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function LoginPage() {
   const [credentials, setCredentials] = useState({
-    username: '',
+    username: '',  // This could be an email if you're using emails to log in
     password: ''
   });
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setCredentials(prevCredentials => ({
-      ...prevCredentials,
+    setCredentials({
+      ...credentials,
       [name]: value
-    }));
+    });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('http://localhost:3000/api/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(credentials)
       });
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       console.log('Login successful:', data);
+      // Store the received token in localStorage or context
+      localStorage.setItem('token', data.token);
+      // Redirect to another route upon successful login
+      navigate('/home');
     } catch (error) {
       console.error('Login error:', error);
-      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
@@ -56,7 +59,6 @@ function Login() {
           placeholder="Password"
           className="w-full p-2 border border-gray-300 rounded"
         />
-        <div className="text-red-500 text-sm">{error}</div>
         <button 
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -68,4 +70,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
