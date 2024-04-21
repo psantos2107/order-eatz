@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const EditReview = ({ review, setEditMode, setFoodReviews }) => {
+const EditReview = ({ review, setEditMode, setMessage, forceUpdate }) => {
   const [inputTitle, setTitle] = useState(review.title);
   const [inputBody, setBody] = useState(review.content);
   const [inputRating, setRating] = useState(review.rating);
@@ -12,7 +12,7 @@ const EditReview = ({ review, setEditMode, setFoodReviews }) => {
 
     async function updateReview() {
       try {
-        await fetch(`${URL}/reviews/${review._id}`, {
+        const res = await fetch(`${URL}/reviews/${review._id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,9 @@ const EditReview = ({ review, setEditMode, setFoodReviews }) => {
             rating: inputRating,
           }),
         });
-        //SET STATE FOR THE REVIEWS ARRAY HERE (adding a review to the UI)! (YOU WILL LIKELY HAVE TO LIFT UP STATE AND PASS SET REVIEWS DOWN AS PROPS)
+        const { message } = await res.json();
+        setMessage(message);
+        forceUpdate();
         setEditMode((mode) => !mode);
       } catch (error) {
         setError(

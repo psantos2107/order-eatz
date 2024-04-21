@@ -1,17 +1,40 @@
 import { useState } from "react";
 import EditReview from "./EditReview";
 
-const Review = ({ review, foodReviews, setFoodReviews }) => {
+const Review = ({
+  review,
+  foodReviews,
+  setFoodReviews,
+  setMessage,
+  forceUpdate,
+}) => {
   const [editMode, setEditMode] = useState(false);
+  const URL = "http://localhost:3000/api";
 
   function handleDelete() {
-    //..code here to handle delete!
-    console.log("Will be implemented later when I have the capacity.");
-    //(1) delete from database
-    //(2) reset the reviews array to display reviews minus the deleted review (utilize foodReviews and setFoodReviews)
+    async function deleteReview() {
+      try {
+        const res = await fetch(`${URL}/reviews/${review._id}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) {
+          throw new Error("Unable to delete the review");
+        }
+        const data = await res.json();
+        const { message } = data;
+        setMessage(message);
+        setFoodReviews(
+          foodReviews.filter((foodReview) => foodReview._id !== review._id)
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    deleteReview();
   }
 
-  function handleClick() {
+  function handleEdit() {
     setEditMode((mode) => !mode);
   }
 
@@ -33,6 +56,8 @@ const Review = ({ review, foodReviews, setFoodReviews }) => {
           review={review}
           setEditMode={setEditMode}
           setFoodReviews={setFoodReviews}
+          forceUpdate={forceUpdate}
+          setMessage={setMessage}
         />
       )}
     </>
