@@ -19,7 +19,7 @@ function Login() {
     event.preventDefault();
     setError('');
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('http://localhost:3000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,10 +27,13 @@ function Login() {
         body: JSON.stringify(credentials),
       });
       if (!response.ok) {
-        throw new Error('Login failed');
+        const errorData = await response.json(); // Parsing error message from the server
+        throw new Error(errorData.message || 'Login failed');
       }
       const data = await response.json();
+      localStorage.setItem('token', data.token); // Storing the token in localStorage
       console.log('Login successful:', data);
+      // Redirect or do additional tasks after login
     } catch (error) {
       console.error('Login error:', error);
       setError('Login failed. Please check your credentials and try again.');

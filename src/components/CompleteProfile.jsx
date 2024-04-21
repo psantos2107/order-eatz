@@ -7,8 +7,8 @@ function CompleteProfile() {
     bio: '',
     foodInterest: ''
   });
-  const navigate = useNavigate();
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -18,6 +18,7 @@ function CompleteProfile() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('userToken');
+    const userId = localStorage.getItem('userId'); // Assuming you're storing userId in local storage
   
     if (!token) {
       console.error('No token found, redirecting to login');
@@ -25,16 +26,14 @@ function CompleteProfile() {
       return;
     }
   
-    console.log('Sending token:', token); // Log the token to console for debugging
-  
     try {
-      const response = await fetch('http://localhost:3000/api/user/profile/update', {
+      const response = await fetch('http://localhost:3000/api/users/profile/update', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Ensure this is correctly formatted
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(profileData),
+        body: JSON.stringify({ ...profileData, userId }), // Include userId in the request body
       });
   
       if (!response.ok) {
@@ -48,9 +47,11 @@ function CompleteProfile() {
       navigate('/user-profile');
     } catch (error) {
       console.error('Failed to update profile:', error);
+      setError('Failed to update profile. Please try again later.');
     }
   };
   
+
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
@@ -83,7 +84,6 @@ function CompleteProfile() {
           <option value="vegetarian">Vegetarian</option>
           <option value="meat_lover">Meat Lover</option>
           <option value="seafood">Seafood</option>
-          {/* Add other options as needed */}
         </select>
         <button 
           type="submit"
