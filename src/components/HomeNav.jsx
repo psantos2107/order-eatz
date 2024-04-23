@@ -2,42 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function HomeNav() {
-  const [categories, setCategories] = useState([]);
+  const [featuredItems, setFeaturedItems] = useState([]);
 
   useEffect(() => {
-    // Fetch categories from the backend API
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/food/:id');
-        if (!response.ok) {
-          throw new Error('Failed to fetch categories');
-        }
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
+    // Fetch data from the API when the component mounts
+    fetch('http://localhost:3000/api/food')
+      .then(response => response.json())
+      .then(data => {
+        // Get 3 random items from the fetched data
+        const randomItems = getRandomItems(data, 3);
+        setFeaturedItems(randomItems);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
-    fetchCategories();
-  }, []);
+  // Function to get random items from the fetched data
+  const getRandomItems = (data, count) => {
+    const shuffled = data.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
 
   return (
-    <nav className="flex justify-between items-center bg-gray-800 p-4">
-      <div className="text-white">
-        <h1 className="text-2xl font-bold">OrderEatz</h1>
-      </div>
-      <div className="flex">
-        <Link to="/" className="text-white mx-4 hover:text-gray-300">Home</Link>
-        <Link to="/food" className="text-white mx-4 hover:text-gray-300">Start Order</Link>
-        <Link to="/order" className="text-white mx-4 hover:text-gray-300">Your Order</Link>
-        {categories.map(category => (
-           <Link to={`/category/${foodItem.category}`} className="text-blue-600 hover:underline ml-1">
-           {foodItem.category}
-         </Link>
+    <div>
+      <h1 className="text-xl font-bold fixed center-0 right-0 mb-40 mr-80 mt-4" style={{ marginTop: '80px' }}>Featured Items</h1>
+      <div className="fixed center-0 right-0 mb-50 mr-4 featured-items" style={{ marginTop: '100px' }}>
+        {/* Display the fetched featured items */}
+        {featuredItems.map(item => (
+          <Link to={`/food/${item._id}`} key={item._id} className="mb-4">
+            <div>
+              <h2>{item.name}</h2>
+              <img src={item.image} alt={item.name} style={{ width: '200px', height: '140px', border: '2px solid black', padding: '20px' }} />
+              <p>{item.description}</p>
+              <p>Price: ${item.price}</p>
+            </div>
+          </Link>
         ))}
       </div>
-    </nav>
+      <div className="fixed bottom-0 right-0 mb-20 mr-4">
+        {/* Link to create an order */}
+        <Link to="/food" className="text-white">
+          <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded mr-4">
+            Create Order
+          </button>
+        </Link>
+      </div>
+    </div>
   );
 }
 

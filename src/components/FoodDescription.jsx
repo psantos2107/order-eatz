@@ -60,7 +60,13 @@ function FoodDescription() {
             to="/food"
             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
           >
-            Go Back
+           Back To Menu
+          </Link> 
+          <Link
+            to="/home"
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2"
+          >
+             Home
           </Link>
         </div>
       ) : (
