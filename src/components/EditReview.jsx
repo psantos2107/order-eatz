@@ -67,6 +67,9 @@ const EditReview = ({ review, setEditMode, setMessage, forceUpdate }) => {
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
+      <button onClick={() => setEditMode((mode) => !mode)}>
+        EXIT EDITING MODE
+      </button>
       <input type="submit" value="SUBMIT REVIEW" />
       {error && <p className="text-red-600">{error}</p>}
     </form>
