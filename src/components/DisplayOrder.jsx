@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const DisplayOrder = ({ orders, initialPrice }) => {
-  const [totalPrice, setTotalPrice] = useState(0);
+const DisplayOrder = ({ orders, initialPrice, handleDeleteItem }) => {
+  const [totalPrice, setTotalPrice] = useState(initialPrice);
 
+  /*
   const updateQuantity = (index, type) => {
     const newOrders = [...orders];
-
     if (type === "increase") {
       newOrders[index].quantity += 1;
     } else if (type === "decrease" && newOrders[index].quantity > 1) {
@@ -14,7 +14,7 @@ const DisplayOrder = ({ orders, initialPrice }) => {
     }
 
     calculateTotalPrice(newOrders);
-  };
+  }; */
 
   const deleteOrder = (index) => {
     const newOrders = [...orders];
@@ -22,7 +22,7 @@ const DisplayOrder = ({ orders, initialPrice }) => {
 
     calculateTotalPrice(newOrders);
   };
-
+  /*
   const calculateTotalPrice = (newOrders) => {
     let total = 0;
     newOrders.forEach((order) => {
@@ -30,8 +30,9 @@ const DisplayOrder = ({ orders, initialPrice }) => {
     });
     setTotalPrice(total);
     //add a fetch request to update the total price in the database
-  };
+  }; */
 
+  console.log(orders);
   return (
     <div>
       <h2>Orders</h2>
@@ -39,14 +40,16 @@ const DisplayOrder = ({ orders, initialPrice }) => {
         {(orders && orders.length) > 0 ? (
           orders.map((order, index) => (
             <li key={index}>
-              {order.name} - {order.quantity} - ${order.price * order.quantity}
+              {order.name} - {order.quantity} - ${order.price}
               <button onClick={() => updateQuantity(index, "increase")}>
                 Increase Quantity
               </button>
               <button onClick={() => updateQuantity(index, "decrease")}>
                 Decrease Quantity
               </button>
-              <button onClick={() => deleteOrder(index)}>Delete</button>
+              <button data-foodid={order._id} onClick={handleDeleteItem}>
+                Delete Item
+              </button>
             </li>
           ))
         ) : (
@@ -54,7 +57,7 @@ const DisplayOrder = ({ orders, initialPrice }) => {
         )}
       </ul>
       <h3>Total Price: ${totalPrice}</h3>
-
+      <button onClick={() => deleteOrder(index)}>Delete Entire Order</button>
       <Link to="/checkout">Go to Checkout</Link>
     </div>
   );
