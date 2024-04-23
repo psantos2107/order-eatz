@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Welcome from '../components/Welcome';
-import SignUp from '../components/SignUp';
+import React from "react";
+import { Link } from "react-router-dom";
+import Welcome from "../components/Welcome";
+import SignUp from "../components/SignUp";
 
 const WelcomePage = () => {
   return (
@@ -17,7 +17,10 @@ const WelcomePage = () => {
         {/* Button for existing users to navigate to the login page */}
         <div className="text-center mt-4">
           <p className="text-gray-600">Already have an account?</p>
-          <Link to="/login" className="text-indigo-600 hover:text-indigo-700 transition duration-300 ease-in-out">
+          <Link
+            to="/login"
+            className="text-indigo-600 hover:text-indigo-700 transition duration-300 ease-in-out"
+          >
             Log in
           </Link>
         </div>

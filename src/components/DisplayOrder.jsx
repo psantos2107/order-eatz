@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const DisplayOrder = ({ orders }) => {
+const DisplayOrder = ({ orders, initialPrice }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const updateQuantity = (index, type) => {
@@ -36,7 +36,7 @@ const DisplayOrder = ({ orders }) => {
     <div>
       <h2>Orders</h2>
       <ul>
-        {orders ? (
+        {(orders && orders.length) > 0 ? (
           orders.map((order, index) => (
             <li key={index}>
               {order.name} - {order.quantity} - ${order.price * order.quantity}
