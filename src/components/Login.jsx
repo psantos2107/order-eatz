@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth from AuthContext
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -6,6 +8,8 @@ function Login() {
     password: ''
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth(); // Consume the auth context
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,13 +31,13 @@ function Login() {
         body: JSON.stringify(credentials),
       });
       if (!response.ok) {
-        const errorData = await response.json(); // Parsing error message from the server
+        const errorData = await response.json();
         throw new Error(errorData.message || 'Login failed');
       }
       const data = await response.json();
-      localStorage.setItem('token', data.token); // Storing the token in localStorage
-      console.log('Login successful:', data);
-      // Redirect or do additional tasks after login
+      localStorage.setItem('userToken', data.token); // Ensure this key matches what you use in AuthContext
+      setIsAuthenticated(true); // Update the auth context
+      navigate('/home'); // Redirect to the home page
     } catch (error) {
       console.error('Login error:', error);
       setError('Login failed. Please check your credentials and try again.');
