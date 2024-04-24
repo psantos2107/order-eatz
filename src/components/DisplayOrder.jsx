@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const DisplayOrder = ({ orders, initialPrice, handleDeleteItem }) => {
-  const [totalPrice, setTotalPrice] = useState(initialPrice);
+const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
+  const URL = "http://localhost:3000/api";
+  const navigate = useNavigate();
+  // const [totalPrice, setTotalPrice] = useState(initialPrice);
 
   /*
   const updateQuantity = (index, type) => {
@@ -16,11 +19,20 @@ const DisplayOrder = ({ orders, initialPrice, handleDeleteItem }) => {
     calculateTotalPrice(newOrders);
   }; */
 
-  const deleteOrder = (index) => {
-    const newOrders = [...orders];
-    newOrders.splice(index, 1);
-
-    calculateTotalPrice(newOrders);
+  const deleteEntireOrder = (id) => {
+    const orderID = id;
+    async function deleteOrder() {
+      try {
+        await fetch(`${URL}/orders/${orderID}`, {
+          method: "DELETE",
+        });
+        navigate("/home");
+      } catch (err) {
+        //maybe add error handling here if we have time.
+        console.log(err.message);
+      }
+    }
+    deleteOrder();
   };
   /*
   const calculateTotalPrice = (newOrders) => {
@@ -57,7 +69,9 @@ const DisplayOrder = ({ orders, initialPrice, handleDeleteItem }) => {
         )}
       </ul>
       <h3>Total Price: ${totalPrice}</h3>
-      <button onClick={() => deleteOrder(index)}>Delete Entire Order</button>
+      <button onClick={() => deleteEntireOrder(orderID)}>
+        Delete Entire Order
+      </button>
       <Link to="/checkout">Go to Checkout</Link>
     </div>
   );

@@ -118,8 +118,9 @@ const OrderPage = () => {
       <section className="p-4 w-1/2 flex flex-col">
         <DisplayOrder
           orders={order?.orders}
-          initialPrice={order.totalPrice}
+          totalPrice={order.totalPrice}
           handleDeleteItem={handleDeleteItem}
+          orderID={order._id}
         />
         <FoodDescription idForFoodPreview={idForFoodPreview} />
       </section>
