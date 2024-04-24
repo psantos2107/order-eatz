@@ -48,7 +48,9 @@ function MenuComponent({ children, partOfOrderPage }) {
                       : item.description}
                   </p>
                 </div>
-                <div className="flex gap-3">{children || ""}</div>
+                <div data-foodid={item._id} className="flex gap-3">
+                  {children || ""}
+                </div>
               </div>
             </li>
           ))}
