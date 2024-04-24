@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams if you need to extract params
+import { useParams } from 'react-router-dom';
 
 function UserProfile() {
-  const { userId } = useParams(); // Assuming you're passing a user ID in the URL
+  const { userId } = useParams();
   const [user, setUser] = useState({
     username: '',
     email: '',
     name: '',
     lastName: '',
-    photo: ''
+    photo: '',
+    bio: '',          // Include bio in the initial state
+    foodInterests: [] // Include foodInterests in the initial state
   });
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
@@ -46,10 +48,17 @@ function UserProfile() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser(prevUser => ({
-      ...prevUser,
-      [name]: value
-    }));
+    if (name === "foodInterests") {
+      setUser(prevUser => ({
+        ...prevUser,
+        [name]: value.split(',').map(item => item.trim()) // Assuming interests are submitted as comma-separated values
+      }));
+    } else {
+      setUser(prevUser => ({
+        ...prevUser,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -92,7 +101,13 @@ function UserProfile() {
           <p>Email: {user.email}</p>
           <p>Name: {user.name}</p>
           <p>Last Name: {user.lastName}</p>
+          <p>Bio: {user.bio}</p>
           {user.photo && <img src={user.photo} alt="Profile" className="w-20 h-20 rounded-full" />}
+          <ul>
+            {user.foodInterests.map((interest, index) => (
+              <li key={index}>{interest}</li>
+            ))}
+          </ul>
           <button onClick={handleEditToggle} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Edit Profile
           </button>
@@ -103,6 +118,8 @@ function UserProfile() {
           <input type="email" name="email" value={user.email} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <input type="text" name="name" value={user.name} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <input type="text" name="lastName" value={user.lastName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+          <textarea name="bio" value={user.bio} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+          <input type="text" name="foodInterests" value={user.foodInterests.join(', ')} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Save Changes
           </button>
