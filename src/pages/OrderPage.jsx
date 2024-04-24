@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MenuComponent from "../components/MenuComponent";
 import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const OrderPage = () => {
   const URL = "http://localhost:3000/api";
@@ -106,6 +106,22 @@ const OrderPage = () => {
     deleteFromOrder();
   }
 
+  const deleteEntireOrder = (id) => {
+    const orderID = id;
+    async function deleteOrder() {
+      try {
+        await fetch(`${URL}/orders/${orderID}`, {
+          method: "DELETE",
+        });
+        navigate("/home");
+      } catch (err) {
+        //maybe add error handling here if we have time.
+        console.log(err.message);
+      }
+    }
+    deleteOrder();
+  };
+
   return (
     <div className="w-full py-24 flex space-evenly">
       <MenuComponent partOfOrderPage={true}>
@@ -123,11 +139,13 @@ const OrderPage = () => {
           handleDeleteItem={handleDeleteItem}
           orderID={order._id}
         />
+        <div>
+        <button onClick={() => deleteEntireOrder(orderID)}>
+        Delete Entire Order
+      </button>
+      </div>
+      <Link to="/checkout">Go to Checkout</Link>
         <FoodDescription idForFoodPreview={idForFoodPreview} />
-      <section className="w-1/2 flex flex-col">
-        <DisplayOrder />
-        <Link to="/checkout">Go to Checkout</Link>
-        <FoodDescription />
       </section>
     </div>
   );

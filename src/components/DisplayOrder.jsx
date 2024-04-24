@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
@@ -19,21 +18,6 @@ const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
     calculateTotalPrice(newOrders);
   }; */
 
-  const deleteEntireOrder = (id) => {
-    const orderID = id;
-    async function deleteOrder() {
-      try {
-        await fetch(`${URL}/orders/${orderID}`, {
-          method: "DELETE",
-        });
-        navigate("/home");
-      } catch (err) {
-        //maybe add error handling here if we have time.
-        console.log(err.message);
-      }
-    }
-    deleteOrder();
-  };
   /*
   const calculateTotalPrice = (newOrders) => {
     let total = 0;
@@ -47,7 +31,7 @@ const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
   console.log(orders);
   return (
     <div>
-      <h2 className="font-extrabold">Orders</h2>
+      <h2>Orders</h2>
       <ul>
         {(orders && orders.length) > 0 ? (
           orders.map((order, index) => (
@@ -69,8 +53,6 @@ const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
         )}
       </ul>
       <h3>Total Price: ${totalPrice}</h3>
-
-      <Link to="/checkout">Go to Checkout</Link>
     </div>
   );
 };

@@ -8,21 +8,45 @@ const FinalizeOrder = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [msg, setMsg] = useState('');
 
-    const submitPayment = () => {
+    const submitPayment = async () => {
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            setMsg("Payment succesfully processed.")
-        }, 2000);
-    };
 
+
+  try {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      throw new Error('Token not found')
+    }
+          const response = await fetch(`http://localhost:3000/api/orders/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ isSubmitted: true }),
+          });
+      
+          const data = await response.json()
+      
+          if (response.ok) {
+            setIsLoading(false)
+            setMsg("Payment successful! Thanks for your order.");
+          } else {
+            throw new Error(data.message || 'Payment processing failed.');
+          }
+        } catch (error) {
+          setIsLoading(false);
+          setMsg(error.message);
+        }
+      };
+      
     return (
         <div className="mt-60 text-lg text-center flex"> 
         <div className='w-1/2'>
         <DisplayOrder/>
         </div>
         <div className='w-1/2'>
-            <h2 className='font-extrabold'> Payment Page</h2>
+            <h2> Payment Page</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="mt-4">
                     <label htmlFor="card-number">Card Number:</label>
