@@ -1,6 +1,7 @@
 import MenuComponent from "../components/MenuComponent";
 import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
+import { Link } from "react-router-dom"
 
 const OrderPage = () => {
   return (
@@ -11,6 +12,7 @@ const OrderPage = () => {
       </MenuComponent>
       <section className="w-1/2 flex flex-col">
         <DisplayOrder />
+        <Link to="/checkout">Go to Checkout</Link>
         <FoodDescription />
       </section>
     </div>

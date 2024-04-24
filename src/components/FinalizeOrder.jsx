@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DisplayOrder from './DisplayOrder';
 
 const FinalizeOrder = () => {
     const [cardNumber, setCardNumber] = useState('');
@@ -16,14 +17,18 @@ const FinalizeOrder = () => {
     };
 
     return (
-        <div className="mt-60 text-center">
-            <h2>Payment Page</h2>
+        <div className="mt-60 text-lg text-center flex"> 
+        <div className='w-1/2'>
+        <DisplayOrder/>
+        </div>
+        <div className='w-1/2'>
+            <h2 className='font-extrabold'> Payment Page</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className="mt-4">
                     <label htmlFor="card-number">Card Number:</label>
                     <input
                         type="text"
-                        className='ml-2 shadow shadow-blue-500/40 hover:shadow-indigo-500/40'
+                        className='ml-2 shadow shadow-blue-500/40'
                         id="card-number"
                         placeholder="1234 5678 9012 3456"
                         value={cardNumber}
@@ -35,7 +40,7 @@ const FinalizeOrder = () => {
                     <label htmlFor="expiry-date">Expiry Date:</label>
                     <input
                         type="text"
-                        className='ml-2 shadow shadow-blue-500/40 hover:shadow-indigo-500/40'
+                        className='ml-2 shadow shadow-blue-500/40'
                         id="expiry-date"
                         placeholder="MM/YY"
                         value={expiryDate}
@@ -47,7 +52,7 @@ const FinalizeOrder = () => {
                     <label htmlFor="cvv">CVV:</label>
                     <input
                         type="text"
-                        className='ml-2 shadow shadow-blue-500/40 hover:shadow-indigo-500/40'
+                        className='ml-2 shadow shadow-blue-500/40 '
                         id="cvv"
                         placeholder="123"
                         value={cvv}
@@ -57,16 +62,18 @@ const FinalizeOrder = () => {
                 </div>
                 <button
                     type="button"
-                    className="mt-4 border-2 border-gray-300 hover:border-blue-400"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-1 px-4 rounded mr-2"
                     onClick={submitPayment}
                     disabled={isLoading}
-                >
-                    {isLoading ? 'Processing...' : 'Submit Payment'}
-                    {msg && (
-                        <p className="text-center text-red-600 text-sm mt-2">{msg}</p>
-                    )}
+                > 
+                    {isLoading ? 'Processing...' : 'Submit Payment'} 
                 </button>
+                    {msg && (
+                        <p className="text-center text-lg text-red-600 mt-4">{msg}</p>
+                    )}
+             
             </form>
+            </div>
         </div>
     );
 };

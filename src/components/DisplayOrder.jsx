@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const DisplayOrder = ({ orders }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -34,7 +33,7 @@ const DisplayOrder = ({ orders }) => {
 
   return (
     <div>
-      <h2>Orders</h2>
+      <h2 className="font-extrabold">Orders</h2>
       <ul>
         {orders ? (
           orders.map((order, index) => (
@@ -55,7 +54,6 @@ const DisplayOrder = ({ orders }) => {
       </ul>
       <h3>Total Price: ${totalPrice}</h3>
 
-      <Link to="/checkout">Go to Checkout</Link>
     </div>
   );
 };
