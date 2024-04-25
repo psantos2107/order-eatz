@@ -11,9 +11,13 @@ const FoodDetails = ({
   forceUpdate,
 }) => {
   return (
-    <>
-      <FoodDescription />
-      {message && <p>{message}</p>}
+    <main className="flex justify-center" style={{ maxHeight: "770px" }}>
+      <section className="w-1/2 border-solid border-black border-2">
+        <FoodDescription />
+        {message && (
+          <p className="text-center text-2xl italic mb-2">{message}</p>
+        )}
+      </section>
       <FoodReviews
         id={id}
         foodReviews={foodReviews}
@@ -22,7 +26,7 @@ const FoodDetails = ({
         setMessage={setMessage}
         forceUpdate={forceUpdate}
       />
-    </>
+    </main>
   );
 };
 

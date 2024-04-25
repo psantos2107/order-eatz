@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Pagination from "./Pagination";
 
-function MenuComponent({ children, partOfOrderPage }) {
+function MenuComponent({
+  children,
+  partOfOrderPage,
+  pageNumber,
+  setPageNumber,
+  limit,
+}) {
   const [menuItems, setMenuItems] = useState([]);
+  let startIndex = (pageNumber - 1) * limit;
+  let endIndex =
+    pageNumber * limit < menuItems.length
+      ? pageNumber * limit
+      : menuItems.length;
+  let slicedMenuItems = partOfOrderPage
+    ? [...menuItems]
+    : menuItems.slice(startIndex, endIndex);
 
   useEffect(() => {
     // Function to fetch menu items
@@ -26,9 +41,19 @@ function MenuComponent({ children, partOfOrderPage }) {
   return (
     <div className={`p-4 ${partOfOrderPage ? "w-1/2" : ""}`}>
       <h2 className="text-2xl mb-4">Menu</h2>
+      {partOfOrderPage || (
+        <Pagination
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          numItemStart={(pageNumber - 1) * limit + 1}
+          numItemEnd={endIndex}
+          limit={limit}
+          totalNumItems={menuItems.length}
+        />
+      )}
       {menuItems.length > 0 ? (
         <ul className="space-y-2">
-          {menuItems.map((item) => (
+          {slicedMenuItems.map((item) => (
             <li key={item._id} className="bg-gray-100 p-2 rounded-md flex">
               <div
                 className={`${
