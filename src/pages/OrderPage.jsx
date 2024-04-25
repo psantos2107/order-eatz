@@ -124,14 +124,16 @@ const OrderPage = () => {
 
   return (
     <div className="w-full py-24 flex space-evenly">
-      <MenuComponent partOfOrderPage={true}>
-        <button className="p-1 bg-slate-300" onClick={handleAddtoOrder}>
-          Add to order
-        </button>
-        <button className="p-1 bg-slate-300" onClick={handleFoodDetails}>
-          See food details
-        </button>
-      </MenuComponent>
+      <div className="overflow-scroll w-1/2" style={{ maxHeight: "900px" }}>
+        <MenuComponent partOfOrderPage={true}>
+          <button className="p-1 bg-slate-300" onClick={handleAddtoOrder}>
+            Add to order
+          </button>
+          <button className="p-1 bg-slate-300" onClick={handleFoodDetails}>
+            See food details
+          </button>
+        </MenuComponent>
+      </div>
       <section className="p-4 w-1/2 flex flex-col">
         <DisplayOrder
           orders={order?.orders}
