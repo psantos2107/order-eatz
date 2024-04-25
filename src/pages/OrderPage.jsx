@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import MenuComponent from "../components/MenuComponent";
 import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
-import { Link } from "react-router-dom";
 
 const OrderPage = () => {
   const URL = "http://localhost:3000/api";
@@ -139,12 +138,6 @@ const OrderPage = () => {
           handleDeleteItem={handleDeleteItem}
           orderID={order._id}
         />
-        <div>
-        <button onClick={() => deleteEntireOrder(orderID)}>
-        Delete Entire Order
-      </button>
-      </div>
-      <Link to="/checkout">Go to Checkout</Link>
         <FoodDescription idForFoodPreview={idForFoodPreview} />
       </section>
     </div>
