@@ -8,27 +8,52 @@ const OrderPage = () => {
   const [idForFoodPreview, setIdForFoodPreview] = useState("");
   const [order, setOrder] = useState({});
 
-  //note: user ID is hardcoded until authorization portion is completed.
   useEffect(() => {
     async function fetchOrCreateUserOrder() {
-      const res = await fetch(
-        `${URL}/orders/user/${"661db0c3b89cd9ddc465476b"}`
-      );
-      const userOrders = await res.json();
-      const openOrder = userOrders.find((order) => order.isSubmitted === false);
-      if (!openOrder || userOrders.length === 0) {
-        const res = await fetch(`${URL}/orders`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const newOrder = await res.json();
-        console.log("Created a new order", newOrder);
-        setOrder(newOrder);
-      } else {
-        console.log("Opened an existing order", openOrder);
-        setOrder(openOrder);
+      try {
+        //checks if there is a token in localStorage, if no token is found. It is OK! because you can create an order as a guest
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          const res = await fetch(`${URL}/orders`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              guestOrder: "true",
+            },
+          });
+          const newOrder = await res.json();
+          console.log("Created a new order for a guest", newOrder);
+          setOrder(newOrder);
+        } else {
+          //changed this fetch route entirely so that no id is needed
+          const res = await fetch(`${URL}/orders/user`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
+          });
+          const userOrders = await res.json();
+          const openOrder = userOrders.find(
+            (order) => order.isSubmitted === false
+          );
+          if (!openOrder || userOrders.length === 0) {
+            const res = await fetch(`${URL}/orders`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const newOrder = await res.json();
+            console.log("Created a new order", newOrder);
+            setOrder(newOrder);
+          } else {
+            console.log("Opened an existing order", openOrder);
+            setOrder(openOrder);
+          }
+        }
+      } catch (err) {
+        console.log(err.message);
       }
     }
 
@@ -80,6 +105,22 @@ const OrderPage = () => {
     deleteFromOrder();
   }
 
+  const deleteEntireOrder = (id) => {
+    const orderID = id;
+    async function deleteOrder() {
+      try {
+        await fetch(`${URL}/orders/${orderID}`, {
+          method: "DELETE",
+        });
+        navigate("/home");
+      } catch (err) {
+        //maybe add error handling here if we have time.
+        console.log(err.message);
+      }
+    }
+    deleteOrder();
+  };
+
   return (
     <div className="w-full py-24 flex space-evenly">
       <MenuComponent partOfOrderPage={true}>
@@ -93,8 +134,9 @@ const OrderPage = () => {
       <section className="p-4 w-1/2 flex flex-col">
         <DisplayOrder
           orders={order?.orders}
-          initialPrice={order.totalPrice}
+          totalPrice={order.totalPrice}
           handleDeleteItem={handleDeleteItem}
+          orderID={order._id}
         />
         <FoodDescription idForFoodPreview={idForFoodPreview} />
       </section>

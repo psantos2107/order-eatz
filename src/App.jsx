@@ -14,8 +14,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FinalizeOrder from "./components/FinalizeOrder";
-import CompleteProfilePage from './pages/CompleteProfilePage';
-import Logout from './components/Logout';
+import CompleteProfilePage from "./pages/CompleteProfilePage";
+import Logout from "./components/Logout";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
           <Route path="/food" element={<MenuPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/food/:id" element={<FoodShowPage />} />
-          <Route path="/checkout" element={<FinalizeOrder />} />
+          <Route path="/checkout/:id" element={<FinalizeOrder />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/complete-profile" element={<PrivateRoute><CompleteProfilePage /></PrivateRoute>} />
           <Route path="/logout" element={<Logout />} />
