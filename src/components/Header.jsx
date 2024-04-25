@@ -1,15 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Header = () => {
   const navigate = useNavigate();
-  const userToken = localStorage.getItem('userToken'); // Check if the user is logged in
-  const userId = localStorage.getItem('userId'); // Optionally store user ID in local storage when logging in
+  const userToken = localStorage.getItem("userToken"); // Check if the user is logged in
+  const decoded = jwtDecode(userToken);
+  const userId = decoded.userId; // Optionally store user ID in local storage when logging in
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken'); // Clear the token from local storage
-    localStorage.removeItem('userId'); // Clear the user ID from local storage
-    navigate('/login'); // Redirect to login page after logout
+    localStorage.removeItem("userToken"); // Clear the token from local storage
+    localStorage.removeItem("userId"); // Clear the user ID from local storage
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
