@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 function UserProfile() {
+  const { userId } = useParams();
   const [user, setUser] = useState({
     username: '',
     email: '',
     name: '',
     lastName: '',
-    photo: ''
+    photo: '',
+    bio: '',          // Include bio in the initial state
+    foodInterests: [] // Include foodInterests in the initial state
   });
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
 
-  // Fetch user data from backend
   useEffect(() => {
     const fetchUserData = async () => {
+      const token = localStorage.getItem('userToken'); // May be null if not logged in
+      const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+      
       try {
-        const response = await fetch('http://localhost:3000/api/users/profile', {
+        const response = await fetch(`http://localhost:3000/api/users/${userId || 'profile'}`, {
           method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('userToken')}`, 
-          },
+          headers: headers,
         });
-        
+
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || 'Failed to fetch user data');
@@ -30,12 +34,12 @@ function UserProfile() {
         setUser(data);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
+        setError(error.message || 'Failed to fetch user data');
       }
     };
-  
+
     fetchUserData();
-  }, []);
-  
+  }, [userId]);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -44,23 +48,37 @@ function UserProfile() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser(prevUser => ({
-      ...prevUser,
-      [name]: value
-    }));
+    if (name === "foodInterests") {
+      setUser(prevUser => ({
+        ...prevUser,
+        [name]: value.split(',').map(item => item.trim()) // Assuming interests are submitted as comma-separated values
+      }));
+    } else {
+      setUser(prevUser => ({
+        ...prevUser,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      setError('You must be logged in to edit profiles.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:3000/api/users/profile/update', {
+      const response = await fetch(`http://localhost:3000/api/users/profile/update`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(user),
       });
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to update profile');
@@ -83,7 +101,13 @@ function UserProfile() {
           <p>Email: {user.email}</p>
           <p>Name: {user.name}</p>
           <p>Last Name: {user.lastName}</p>
+          <p>Bio: {user.bio}</p>
           {user.photo && <img src={user.photo} alt="Profile" className="w-20 h-20 rounded-full" />}
+          <ul>
+            {user.foodInterests.map((interest, index) => (
+              <li key={index}>{interest}</li>
+            ))}
+          </ul>
           <button onClick={handleEditToggle} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Edit Profile
           </button>
@@ -94,6 +118,8 @@ function UserProfile() {
           <input type="email" name="email" value={user.email} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <input type="text" name="name" value={user.name} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <input type="text" name="lastName" value={user.lastName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+          <textarea name="bio" value={user.bio} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+          <input type="text" name="foodInterests" value={user.foodInterests.join(', ')} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
           <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Save Changes
           </button>

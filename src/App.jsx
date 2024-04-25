@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext"; // Import the AuthProvider
+
 import MenuPage from "./pages/MenuPage";
 import HomePage from "./pages/HomePage";
 import WelcomePage from "./pages/WelcomePage";
@@ -18,7 +20,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
-    <>
+    <AuthProvider> {/* Wrap the components that need authentication state */}
       <Header />
       <div>
         <Routes>
@@ -31,29 +33,14 @@ function App() {
           <Route path="/order" element={<OrderPage />} />
           <Route path="/food/:id" element={<FoodShowPage />} />
           <Route path="/checkout/:id" element={<FinalizeOrder />} />
-          {/* Render FoodDetailsComponent for the food details route */}
           <Route path="*" element={<NotFoundPage />} />
-          <Route
-            path="/complete-profile"
-            element={
-              <PrivateRoute>
-                <CompleteProfilePage />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/complete-profile" element={<PrivateRoute><CompleteProfilePage /></PrivateRoute>} />
           <Route path="/logout" element={<Logout />} />
-          <Route
-            path="/user-profile"
-            element={
-              <PrivateRoute>
-                <UserProfilePage />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/user-profile" element={<PrivateRoute><UserProfilePage /></PrivateRoute>} />
         </Routes>
       </div>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }
 

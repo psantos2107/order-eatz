@@ -10,12 +10,20 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const token = localStorage.getItem('userToken'); // Retrieve the token from local storage
+
+    if (!token) {
+      setError("You must be logged in to submit a review.");
+      return;
+    }
+
     async function postReview() {
       try {
         const res = await fetch(`${URL}/reviews`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`  // Include the token in the Authorization header
           },
           body: JSON.stringify({
             title: inputTitle,
@@ -24,17 +32,19 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
             foodItem: foodID,
           }),
         });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || "Unable to submit the review.");
+        }
         const postedReview = await res.json();
         setTitle("");
         setBody("");
         setRating("4");
-        setMessage(postedReview.message);
+        setMessage(postedReview.message || "Review submitted successfully!");
         forceUpdate();
       } catch (error) {
-        setError(
-          "Something went wrong with submitting the review. Please try again."
-        );
-        return;
+        console.error(error);
+        setError("Something went wrong with submitting the review. Please try again.");
       }
     }
     postReview();
@@ -42,7 +52,7 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
 
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="review-title">TITLE:</label>
         <input
           type="text"
@@ -50,15 +60,14 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
           placeholder="Title"
           value={inputTitle}
           onChange={(e) => setTitle(e.target.value)}
-        ></input>
+        />
         <label htmlFor="review-body">YOUR REVIEW:</label>
         <textarea
-          type="text"
           id="review-body"
           placeholder="Write your review..."
           value={inputBody}
           onChange={(e) => setBody(e.target.value)}
-        ></textarea>
+        />
         <label htmlFor="review-rating">FOOD RATING:</label>
         <select
           id="review-rating"
