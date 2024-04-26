@@ -9,7 +9,7 @@ function SignUp() {
     name: '',
     lastName: ''
   });
-  const [error, setError] = useState(''); // State to store error message
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -22,15 +22,13 @@ function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    // Clear previous errors
     setError('');
-
+    
     if (!formData.username || !formData.email || !formData.password || !formData.name || !formData.lastName) {
       setError('Please fill in all fields');
       return;
     }
-  
+
     try {
       const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
@@ -38,26 +36,27 @@ function SignUp() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      }); 
-      
-      const data = await response.json(); // Get data from the response body regardless of the response status
-      
+      });
+
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error(data.message || `HTTP error! status: ${response.status}`); // Use server's error message if available
+        throw new Error(data.message || `HTTP error! status: ${response.status}`);
       }
 
-      localStorage.setItem('userToken', data.token); // Save the token to local storage
-      navigate('/complete-profile'); // Navigate to 'complete-profile' on successful registration
+      localStorage.setItem('userToken', data.token);
+      navigate('/complete-profile');
     } catch (error) {
       console.error('Signup error:', error);
-      setError(error.message); // Display a user-friendly error message
+      setError(error.message);
     }
   };
-  
+
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
+      <h2 className="text-xl font-bold text-center mb-6">Sign Up to Start Ordering</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {error && <p className="text-red-500">{error}</p>} {/* Display the error message if there is one */}
+        {error && <p className="text-red-500">{error}</p>}
         <input 
           type="text"
           name="username"
@@ -105,6 +104,9 @@ function SignUp() {
           Sign Up
         </button>
       </form>
+      <div className="text-center mt-4">
+        Already have an account? <a href="/login" className="text-blue-500 hover:text-blue-700">Log in</a>
+      </div>
     </div>
   );
 }
