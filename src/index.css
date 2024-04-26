@@ -11,6 +11,14 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  );
 }
 
 .setMaxImgSizeOrderPage {
@@ -31,10 +39,15 @@ body {
 
 .welcome-page-container {
   animation: gradient-animation 5s ease infinite;
-  background: linear-gradient(45deg, rgba(72, 181, 186, 0.2), rgba(72, 181, 186, 0.4), rgba(72, 181, 186, 0.6), rgba(72, 181, 186, 0.8), rgba(72, 181, 186, 1)); /* Teal color with different opacities */
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  ); /* Teal color with different opacities */
 }
-
-
 
 @keyframes slide-in {
   0% {
@@ -94,31 +107,31 @@ body {
 }
 
 .wrap {
-  background-image: url('https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Buffalo-Chicken-Wrap-3.jpg');
+  background-image: url("https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Buffalo-Chicken-Wrap-3.jpg");
   top: 20px;
   left: -140px;
 }
 
 .quesadilla {
-  background-image: url('https://www.isabeleats.com/wp-content/uploads/2023/09/buffalo-chicken-quesadillas-small-6.jpg');
+  background-image: url("https://www.isabeleats.com/wp-content/uploads/2023/09/buffalo-chicken-quesadillas-small-6.jpg");
   top: 100px;
   left: 60px;
 }
 
 .wings {
-  background-image: url('https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2024-01-buffalo-wings%2Fbuffalo-wings-351');
+  background-image: url("https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2024-01-buffalo-wings%2Fbuffalo-wings-351");
   top: 150px;
   left: 270px;
 }
 
 .cake {
-  background-image: url('https://preppykitchen.com/wp-content/uploads/2022/03/Chocolate-Lava-Cake-Recipe.jpg');
+  background-image: url("https://preppykitchen.com/wp-content/uploads/2022/03/Chocolate-Lava-Cake-Recipe.jpg");
   top: 200px;
   left: 480px;
 }
 
 .lemonade {
-  background-image: url('https://thetravelbite.com/wp-content/uploads/2021/06/Mint-Lemonade-TheTravelBite.com-16-scaled.jpg');
+  background-image: url("https://thetravelbite.com/wp-content/uploads/2021/06/Mint-Lemonade-TheTravelBite.com-16-scaled.jpg");
   top: 260px;
   left: 720px;
 }

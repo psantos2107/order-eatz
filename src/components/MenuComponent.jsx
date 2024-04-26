@@ -41,18 +41,8 @@ function MenuComponent({
   return (
     <div className={`p-4 ${partOfOrderPage ? "w-full" : ""}`}>
       <h2 className="text-2xl mb-4">Menu</h2>
-      {partOfOrderPage || (
-        <Pagination
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          numItemStart={(pageNumber - 1) * limit + 1}
-          numItemEnd={endIndex}
-          limit={limit}
-          totalNumItems={menuItems.length}
-        />
-      )}
       {menuItems.length > 0 ? (
-        <ul className="space-y-2">
+        <ul className="space-y-2 mb-8">
           {slicedMenuItems.map((item) => (
             <li key={item._id} className="bg-gray-100 p-2 rounded-md flex">
               <div
@@ -82,6 +72,16 @@ function MenuComponent({
         </ul>
       ) : (
         <p className="text-gray-500">No menu items available</p>
+      )}
+      {partOfOrderPage || (
+        <Pagination
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          numItemStart={(pageNumber - 1) * limit + 1}
+          numItemEnd={endIndex}
+          limit={limit}
+          totalNumItems={menuItems.length}
+        />
       )}
     </div>
   );
