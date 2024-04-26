@@ -24,15 +24,16 @@ const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
 
   return (
     <>
+    <div className="text-center">
       <div>
-        <h2>Orders</h2>
+        <h1 className="font-bold text-4xl">Your Order</h1>
         <ul>
           {(orders && orders.length) > 0 ? (
             orders.map((order, index) => (
-              <li key={index}>
-                {order.name} - {order.quantity} - ${order.price}
+              <li className="text-xl" key={index}>
+                {order.name} : ${order.price}
                 {handleDeleteItem ? (
-                  <button data-foodid={order._id} onClick={handleDeleteItem}>
+                  <button className="ml-2 px-2 bg-red-500 text-white rounded hover:bg-red-600 hover:text-white" data-foodid={order._id} onClick={handleDeleteItem}>
                     Delete Item
                   </button>
                 ) : (
@@ -41,22 +42,21 @@ const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
               </li>
             ))
           ) : (
-            <h2>No food orders added yet.</h2>
+            <h2 className="text-xl">No food orders added yet.</h2>
           )}
         </ul>
-        <h3>Total Price: ${totalPrice}</h3>
-        {!handleDeleteItem ? <Link to="/order">Go Back</Link> : ""}
+        <h3 className="font-bold text-3xl">Total Price: ${totalPrice}</h3>
+        {!handleDeleteItem ? <Link className="ml-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 hover:text-white" to="/order">Go Back to Order Page</Link> : ""}
       </div>
       {handleDeleteItem ? (
         <div>
-          <Link to={`/checkout/${orderID}`}>Go to Checkout</Link>
-          <button onClick={() => deleteEntireOrder(orderID)}>
-            Delete Entire Order
-          </button>
+        <Link className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:text-white" to={`/checkout/${orderID}`}>Go to Checkout</Link>
+        <button className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hover:text-white" onClick={() => deleteEntireOrder(orderID)}>Delete Order</button>
         </div>
       ) : (
         ""
       )}
+      </div>
     </>
   );
 };
