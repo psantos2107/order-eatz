@@ -34,7 +34,7 @@ function FoodDescription({ idForFoodPreview }) {
   }, [id, idForFoodPreview]); // Run this effect when the component mounts or when the id parameter changes
 
   return (
-    <div className={`p-4`}>
+    <div className={`p-4  bg-white`}>
       <h2 className="text-2xl mb-4 text-center">Food Details</h2>
       {foodItem ? (
         <div className={`flex flex-col justify-center items-center `}>

@@ -90,7 +90,7 @@ const Review = ({
       {!editMode ? (
         <article
           key={review._id}
-          className="bg-white max-w-4xl mx-auto my-5 p-5 border rounded-lg shadow-sm"
+          className="bg-slate-200 max-w-2xl mx-auto my-5 p-5 border rounded-lg shadow-sm"
         >
           <h2 className="text-lg font-bold text-gray-800">
             <strong>Title: {review.title}</strong>
