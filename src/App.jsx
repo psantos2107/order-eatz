@@ -17,6 +17,7 @@ import FinalizeOrder from "./components/FinalizeOrder";
 import CompleteProfilePage from "./pages/CompleteProfilePage";
 import Logout from "./components/Logout";
 import PrivateRoute from "./components/PrivateRoute";
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/complete-profile" element={<PrivateRoute><CompleteProfilePage /></PrivateRoute>} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/user-profile" element={<PrivateRoute><UserProfilePage /></PrivateRoute>} />
+          <Route path="/edit-profile" element={<PrivateRoute><EditProfilePage /></PrivateRoute>} />
         </Routes>
       </div>
       <Footer />
