@@ -27,8 +27,8 @@ function HomeNav() {
   return (
     <div>
 
-      <h1 className="text-xl font-bold fixed top-0 right-0 mt-4 mr-80">Featured Items</h1>
-      <div className="fixed top-0 right-0 mt-12 mr-4">
+<h1 className="text-xl font-bold fixed center-0 right-0 mb-40 mr-80 mt-4" style={{ marginTop: '90px' }}>Featured Items</h1>
+      <div className="featured-items-container fixed top-0 right-0 mt-12 mr-4">
         {featuredItems.map(item => (
           <Link to={`/food/${item._id}`} key={item._id}>
             <div className="mb-4">

@@ -69,6 +69,17 @@ body {
   font-size: 1.15rem; /* Adjust the value as needed */
 }
 
+.featured-items-container {
+  position: fixed;
+  top: 80px; /* Adjust as needed */
+  right: 0;
+  margin-right: 4rem; /* Adjust as needed */
+}
+
+.featured-item {
+  margin-bottom: 1.5rem; /* Adjust as needed */
+}
+
 @keyframes fly-in-out {
   0% {
     transform: translateY(-100vh) rotate(0deg);
@@ -103,7 +114,11 @@ body {
   width: 150px; /* Adjust size as needed */
   height: 160px; /* Adjust size as needed */
   background-size: cover;
-  animation: fly-in-out 7s ease-in-out infinite;
+  animation: fly-in-out 12s ease-in-out infinite;
+}
+
+.wrap, .quesadilla, .wings, .cake, .lemonade {
+  border-radius: 6px; /* Adjust the border-radius value as needed */
 }
 
 .wrap {
