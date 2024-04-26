@@ -1,10 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomeNav() {
   const [featuredItems, setFeaturedItems] = useState([]);
-  const userToken = localStorage.getItem('userToken'); // Retrieve user authentication token if available
+  const userToken = localStorage.getItem("userToken"); // Retrieve user authentication token if available
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,14 +24,17 @@ function HomeNav() {
   };
 
   return (
-    <div>
-
-<h1 className="text-xl font-bold fixed center-0 right-0 mb-40 mr-80 mt-4" style={{ marginTop: '90px' }}>Featured Items</h1>
-      <div className="featured-items-container fixed top-0 right-0 mt-12 mr-4">
-        {featuredItems.map(item => (
+    <div className="w-1/2 ml-12 bg-white p-3 border-2 border-solid border-black">
+      <h1 className="text-2xl font-bold text-center" style={{ marginTop: "" }}>
+        Featured Items
+      </h1>
+      <div className="">
+        {featuredItems.map((item) => (
           <Link to={`/food/${item._id}`} key={item._id}>
             <div className="mb-4">
-              <h2>{item.name}</h2>
+              <h2 className="text-2xl">
+                <strong>{item.name}</strong>
+              </h2>
               <img
                 src={item.image}
                 alt={item.name}
@@ -52,7 +54,10 @@ function HomeNav() {
       <div className="fixed bottom-0 right-0 mb-20 mr-4">
         {/* Show a personalized button if the user is logged in */}
         {userToken ? (
-          <button onClick={() => navigate('/order')} className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">
+          <button
+            onClick={() => navigate("/order")}
+            className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+          >
             Create Personalized Order
           </button>
         ) : (
@@ -66,7 +71,6 @@ function HomeNav() {
         <Link to="/food" className="ml-4 text-white">
           <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">
             View Menu
-
           </button>
         </Link>
       </div>
@@ -75,3 +79,6 @@ function HomeNav() {
 }
 
 export default HomeNav;
+
+/* fixed center-0 right-0 mb-40 mr-80 mt-4 (h1)*/
+/* featured-items-container fixed top-0 right-0 mt-12 mr-4 div above the map*/
