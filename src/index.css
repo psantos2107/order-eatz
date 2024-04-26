@@ -40,6 +40,14 @@ body {
 
 .welcome-page-container {
   animation: gradient-animation 5s ease infinite;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  );
 }
 
 @keyframes slide-in {
@@ -110,7 +118,19 @@ body {
   animation: fly-in-out 12s ease-in-out infinite;
 }
 
-.wrap, .quesadilla, .wings, .cake, .lemonade, .lasagna, .Pad-Thai,.Tiramisu,.Peking-Duck,.Miso-Glazed-Cod,.Pumpkin-Soup,.Whiskey-Smash,.Tomato-Bruschetta {
+.wrap,
+.quesadilla,
+.wings,
+.cake,
+.lemonade,
+.lasagna,
+.Pad-Thai,
+.Tiramisu,
+.Peking-Duck,
+.Miso-Glazed-Cod,
+.Pumpkin-Soup,
+.Whiskey-Smash,
+.Tomato-Bruschetta {
   border-radius: 6px; /* Adjust the border-radius value as needed */
 }
 
@@ -144,8 +164,6 @@ body {
   left: 720px;
 }
 
-
-
 .lasagna {
   background-image: url("https://cdn.loveandlemons.com/wp-content/uploads/2023/12/vegetarian-lasagna-scaled.jpg");
   top: 20px;
@@ -170,7 +188,6 @@ body {
   left: 900px;
 }
 
-
 .Miso-Glazed-Cod {
   background-image: url("https://www.justonecookbook.com/wp-content/uploads/2021/02/Miso-Cod-Black-Cod-with-Miso-2-I.jpg");
   top: 10px;
@@ -189,12 +206,11 @@ body {
   left: 600px;
 }
 
-.Tomato-Bruschetta{
+.Tomato-Bruschetta {
   background-image: url("https://joyfoodsunshine.com/wp-content/uploads/2022/04/tomato-bruschetta-recipe-1.jpg");
   top: 10px;
   left: 680px;
 }
-
 
 .setMaxImgSizeShowPage {
   max-height: 400px;
