@@ -1,51 +1,76 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from 'jwt-decode';
 
 const Header = () => {
   const navigate = useNavigate();
-  const userToken = localStorage.getItem("userToken"); // Check if the user is logged in
-  const decoded = userToken ? jwtDecode(userToken) : { userId: null };
-  const userId = decoded.userId; // Optionally store user ID in local storage when logging in
+  const userToken = localStorage.getItem("userToken");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const decoded = userToken ? jwtDecode(userToken) : null;
+  const userId = decoded?.userId;
+  const userProfilePic = decoded?.profilePic || "default-profile-pic-url";
 
   const handleLogout = () => {
-    localStorage.removeItem("userToken"); // Clear the token from local storage
-    localStorage.removeItem("userId"); // Clear the user ID from local storage
-    navigate("/login"); // Redirect to login page after logout
+    localStorage.removeItem("userToken");
+    navigate("/login");
+    setShowDropdown(false);
   };
 
   return (
-    <div className="bg-black py-3 justify-between flex fixed w-full top-0 left-0">
+    <div className="bg-black py-3 flex justify-between items-center fixed w-full top-0 left-0 z-10">
       <div className="text-white ml-4 text-2xl font-bold">
-      <img src="https://i.imgur.com/8JuGwUt.jpg" alt="" style={{ width: "410px", height: "60px"}}/>
-      </div>
-      <div className="text-white">
-        <Link className="mx-4" to="/home">
-          Home
-        </Link>
+     <img src="https://i.imgur.com/8JuGwUt.jpg" alt="" style={{ width: "410px", height: "60px"}}/>
+    </div>
+      <div className="flex items-center text-white" ref={dropdownRef}>
+        <Link className="mx-4" to="/home" onClick={() => setShowDropdown(false)}>Home</Link>
+        <Link className="mx-4" to="/food" onClick={() => setShowDropdown(false)}>Menu</Link>
+        <Link className="mx-4" to="/order" onClick={() => setShowDropdown(false)}>Order Now</Link>
         {userToken && (
-          <Link className="mx-4" to={`/user/${userId}`}>
-            My Profile
-          </Link>
-        )}
-        <Link className="mx-4" to="/food">
-          Menu
-        </Link>
-        <Link className="mx-4" to="/order">
-          Order Now
-        </Link>
-        {userToken ? (
-          <button className="mx-4 text-white" onClick={handleLogout}>
-            Logout
-          </button>
-        ) : (
           <>
-            <Link className="mx-4" to="/login">
-              Login
-            </Link>
-            <Link className="mx-4" to="/signup">
-              Sign Up
-            </Link>
+            <img
+              src={userProfilePic}
+              alt="Profile"
+              className="mx-4 h-8 w-8 rounded-full cursor-pointer"
+              onClick={() => setShowDropdown(!showDropdown)}
+            />
+            {showDropdown && (
+              <div className="absolute right-0 w-48 bg-white rounded-md shadow-xl z-20"
+                   style={{ top: '100%', transform: 'translateY(-10px)' }}> {/* Move closer to the profile picture */}
+                <Link
+                  to={`/user/${userId}`}
+                  className="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  My Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-left w-full px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white focus:outline-none"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </>
+        )}
+        {!userToken && (
+          <>
+            <Link className="mx-4" to="/login" onClick={() => setShowDropdown(false)}>Login</Link>
+            <Link className="mx-4" to="/signup" onClick={() => setShowDropdown(false)}>Sign Up</Link>
           </>
         )}
       </div>
