@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 const Header = () => {
   const navigate = useNavigate();
   const userToken = localStorage.getItem("userToken"); // Check if the user is logged in
-  const decoded = jwtDecode(userToken);
+  const decoded = userToken ? jwtDecode(userToken) : { userId: null };
   const userId = decoded.userId; // Optionally store user ID in local storage when logging in
 
   const handleLogout = () => {

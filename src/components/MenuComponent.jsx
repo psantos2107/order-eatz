@@ -39,7 +39,7 @@ function MenuComponent({
   }, []); // Run this effect only once when the component mounts
 
   return (
-    <div className={`p-4 ${partOfOrderPage ? "w-1/2" : ""}`}>
+    <div className={`p-4 ${partOfOrderPage ? "w-full" : ""}`}>
       <h2 className="text-2xl mb-4">Menu</h2>
       {partOfOrderPage || (
         <Pagination
