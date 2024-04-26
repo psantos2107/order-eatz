@@ -15,8 +15,10 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-black py-6 justify-between flex fixed w-full top-0 left-0">
-      <div className="text-white ml-4 text-2xl font-bold">OrderEatz</div>
+    <div className="bg-black py-3 justify-between flex fixed w-full top-0 left-0">
+      <div className="text-white ml-4 text-2xl font-bold">
+      <img src="https://i.imgur.com/8JuGwUt.jpg" alt="" style={{ width: "410px", height: "60px"}}/>
+      </div>
       <div className="text-white">
         <Link className="mx-4" to="/home">
           Home
