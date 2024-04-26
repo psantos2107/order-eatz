@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function FoodDescription({ idForFoodPreview }) {
   const { id } = useParams();
   const [foodItem, setFoodItem] = useState(null);
+  let navigate = useNavigate();
 
   // Function to add food item to order
-  const addToOrder = () => {
-    console.log(`Added ${foodItem.name} to order`);
+  const goToOrderPage = () => {
+    navigate("/order");
   };
 
   useEffect(() => {
@@ -57,10 +58,10 @@ function FoodDescription({ idForFoodPreview }) {
           {id ? (
             <div>
               <button
-                onClick={addToOrder}
+                onClick={goToOrderPage}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
-                Add to Order
+                Go to Order Page
               </button>
               <Link
                 to="/food"

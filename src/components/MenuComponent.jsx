@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
+import ChooseFoodCategory from "./ChooseFoodCategory";
 
 function MenuComponent({
   children,
@@ -10,14 +11,21 @@ function MenuComponent({
   limit,
 }) {
   const [menuItems, setMenuItems] = useState([]);
+  const [category, setCategory] = useState("All");
   let startIndex = (pageNumber - 1) * limit;
   let endIndex =
     pageNumber * limit < menuItems.length
       ? pageNumber * limit
       : menuItems.length;
-  let slicedMenuItems = partOfOrderPage
-    ? [...menuItems]
-    : menuItems.slice(startIndex, endIndex);
+  let slicedMenuItems;
+  if (partOfOrderPage) {
+    slicedMenuItems =
+      category === "All"
+        ? [...menuItems]
+        : menuItems.filter((item) => item.category === category);
+  } else {
+    slicedMenuItems = menuItems.slice(startIndex, endIndex);
+  }
 
   useEffect(() => {
     // Function to fetch menu items
@@ -37,11 +45,22 @@ function MenuComponent({
     fetchMenuItems();
   }, []); // Run this effect only once when the component mounts
 
+  function handleCategoryChange(e) {
+    e.preventDefault();
+    setCategory(e.target.value);
+  }
+
   return (
     <div
       className={`p-4 ${partOfOrderPage ? "w-full" : "w-4/5 ml-auto mr-auto"}`}
     >
       <h2 className="text-4xl mb-4">Menu</h2>
+      {partOfOrderPage && (
+        <ChooseFoodCategory
+          handleCategoryChange={handleCategoryChange}
+          category={category}
+        />
+      )}
       {menuItems.length > 0 ? (
         <ul className="space-y-2 mb-8">
           {slicedMenuItems.map((item) => (
