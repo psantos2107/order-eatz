@@ -9,6 +9,7 @@ const FoodShowPage = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [dummy, setDummy] = useState(1);
+  const token = localStorage.getItem("userToken");
   const URL = "http://localhost:3000/api";
 
   const forceUpdate = function () {
@@ -34,7 +35,12 @@ const FoodShowPage = () => {
   }, [dummy]);
 
   return (
-    <div className="my-20">
+    <main className="py-20">
+      <h2 className="text-2xl p-4">
+        <strong>
+          <em>See what other users had to say about our food items... 🤔 </em>
+        </strong>
+      </h2>
       <FoodDetails
         id={id}
         error={error}
@@ -44,8 +50,14 @@ const FoodShowPage = () => {
         setMessage={setMessage}
         forceUpdate={forceUpdate}
       />
-      <CreateReview id={id} setMessage={setMessage} forceUpdate={forceUpdate} />
-    </div>
+      {token && (
+        <CreateReview
+          id={id}
+          setMessage={setMessage}
+          forceUpdate={forceUpdate}
+        />
+      )}
+    </main>
   );
 };
 

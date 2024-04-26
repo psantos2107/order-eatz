@@ -10,7 +10,7 @@ function LoginPage() {
             </header>
             <Login />  {/* Embedding the Login component */}
             <footer className="login-footer">
-                <p>Not registered yet? <a href="/register">Sign up here</a></p>
+                <p>Not registered yet? <a href="/signup">Sign up here</a></p>
             </footer>
         </div>
     );

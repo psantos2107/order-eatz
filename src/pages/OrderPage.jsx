@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import MenuComponent from "../components/MenuComponent";
 import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
-import { Link } from "react-router-dom";
 
 const OrderPage = () => {
   const URL = "http://localhost:3000/api";
@@ -43,6 +42,7 @@ const OrderPage = () => {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("userToken")}`,
               },
             });
             const newOrder = await res.json();
@@ -124,14 +124,16 @@ const OrderPage = () => {
 
   return (
     <div className="w-full py-24 flex space-evenly">
-      <MenuComponent partOfOrderPage={true}>
-        <button className="p-1 bg-slate-300" onClick={handleAddtoOrder}>
-          Add to order
-        </button>
-        <button className="p-1 bg-slate-300" onClick={handleFoodDetails}>
-          See food details
-        </button>
-      </MenuComponent>
+      <div className="overflow-scroll w-1/2" style={{ maxHeight: "800px" }}>
+        <MenuComponent partOfOrderPage={true}>
+          <button className="p-1 bg-slate-300" onClick={handleAddtoOrder}>
+            Add to order
+          </button>
+          <button className="p-1 bg-slate-300" onClick={handleFoodDetails}>
+            See food details
+          </button>
+        </MenuComponent>
+      </div>
       <section className="p-4 w-1/2 flex flex-col">
         <DisplayOrder
           orders={order?.orders}
@@ -139,12 +141,6 @@ const OrderPage = () => {
           handleDeleteItem={handleDeleteItem}
           orderID={order._id}
         />
-        <div>
-        <button onClick={() => deleteEntireOrder(orderID)}>
-        Delete Entire Order
-      </button>
-      </div>
-      <Link to="/checkout">Go to Checkout</Link>
         <FoodDescription idForFoodPreview={idForFoodPreview} />
       </section>
     </div>
