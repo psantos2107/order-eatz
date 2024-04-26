@@ -5,20 +5,25 @@ function CompleteProfile() {
   const [profileData, setProfileData] = useState({
     photo: '',
     bio: '',
-    foodInterest: ''
+    foodInterests: [] // Changed to expect an array
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setProfileData({ ...profileData, [name]: value });
+    // If the field is foodInterests, wrap the single value in an array
+    if (name === 'foodInterests') {
+      setProfileData({ ...profileData, [name]: [value] });
+    } else {
+      setProfileData({ ...profileData, [name]: value });
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('userToken');
-    const userId = localStorage.getItem('userId'); // Assuming you're storing userId in local storage
+    const userId = localStorage.getItem('userId');
   
     if (!token) {
       console.error('No token found, redirecting to login');
@@ -33,7 +38,7 @@ function CompleteProfile() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ ...profileData, userId }), // Include userId in the request body
+        body: JSON.stringify({ ...profileData, userId }),
       });
   
       if (!response.ok) {
@@ -50,8 +55,6 @@ function CompleteProfile() {
       setError('Failed to update profile. Please try again later.');
     }
   };
-  
-
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
@@ -74,8 +77,8 @@ function CompleteProfile() {
           className="w-full p-2 border border-gray-300 rounded"
         />
         <select 
-          name="foodInterest"
-          value={profileData.foodInterest}
+          name="foodInterests" // Ensure this matches the state variable
+          value={profileData.foodInterests[0] || ''} // Handling the select as a single-value field
           onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded"
         >
