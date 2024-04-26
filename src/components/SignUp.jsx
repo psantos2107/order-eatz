@@ -14,40 +14,37 @@ function SignUp() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
-    
+
+    // Validation of form data
     if (!formData.username || !formData.email || !formData.password || !formData.name || !formData.lastName) {
       setError('Please fill in all fields');
       return;
     }
 
+    // API call to register the user
     try {
       const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json();
         throw new Error(data.message || `HTTP error! status: ${response.status}`);
       }
 
+      // If registration is successful
+      const data = await response.json();
       localStorage.setItem('userToken', data.token);
-      navigate('/complete-profile');
+      navigate('/complete-profile'); // Redirect to complete profile after successful signup
     } catch (error) {
-      console.error('Signup error:', error);
       setError(error.message);
     }
   };
@@ -55,8 +52,8 @@ function SignUp() {
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold text-center mb-6">Sign Up to Start Ordering</h2>
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {error && <p className="text-red-500">{error}</p>}
         <input 
           type="text"
           name="username"
@@ -64,6 +61,7 @@ function SignUp() {
           onChange={handleChange}
           placeholder="Username"
           className="w-full p-2 border border-gray-300 rounded"
+          required
         />
         <input 
           type="email"
@@ -72,6 +70,7 @@ function SignUp() {
           onChange={handleChange}
           placeholder="Email"
           className="w-full p-2 border border-gray-300 rounded"
+          required
         />
         <input 
           type="password"
@@ -80,6 +79,7 @@ function SignUp() {
           onChange={handleChange}
           placeholder="Password"
           className="w-full p-2 border border-gray-300 rounded"
+          required
         />
         <input 
           type="text"
@@ -88,6 +88,7 @@ function SignUp() {
           onChange={handleChange}
           placeholder="First Name"
           className="w-full p-2 border border-gray-300 rounded"
+          required
         />
         <input 
           type="text"
@@ -96,17 +97,15 @@ function SignUp() {
           onChange={handleChange}
           placeholder="Last Name"
           className="w-full p-2 border border-gray-300 rounded"
+          required
         />
         <button 
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Sign Up
         </button>
       </form>
-      <div className="text-center mt-4">
-        Already have an account? <a href="/login" className="text-blue-500 hover:text-blue-700">Log in</a>
-      </div>
     </div>
   );
 }
