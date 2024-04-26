@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import SignUp from "../components/SignUp";
+import "../index.css";
 
 const WelcomePage = () => {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-100">
+    <div className="welcome-page-container flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-100">
       <div className="flex-1 max-w-4xl mx-auto p-8">
         {/* Welcome message */}
         <Welcome />
