@@ -11,10 +11,129 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  );
 }
 
 .setMaxImgSizeOrderPage {
   max-height: 300px;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.welcome-page-container {
+  animation: gradient-animation 5s ease infinite;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  ); /* Teal color with different opacities */
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-text {
+  animation: slide-in 4s ease-out forwards;
+  font-size: 3rem;
+}
+
+.text-lg {
+  font-size: 1.15rem; /* Adjust the value as needed */
+}
+
+@keyframes fly-in-out {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.food-animation {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+}
+
+.food-item {
+  position: absolute;
+  width: 150px; /* Adjust size as needed */
+  height: 160px; /* Adjust size as needed */
+  background-size: cover;
+  animation: fly-in-out 7s ease-in-out infinite;
+}
+
+.wrap {
+  background-image: url("https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Buffalo-Chicken-Wrap-3.jpg");
+  top: 20px;
+  left: -140px;
+}
+
+.quesadilla {
+  background-image: url("https://www.isabeleats.com/wp-content/uploads/2023/09/buffalo-chicken-quesadillas-small-6.jpg");
+  top: 100px;
+  left: 60px;
+}
+
+.wings {
+  background-image: url("https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2024-01-buffalo-wings%2Fbuffalo-wings-351");
+  top: 150px;
+  left: 270px;
+}
+
+.cake {
+  background-image: url("https://preppykitchen.com/wp-content/uploads/2022/03/Chocolate-Lava-Cake-Recipe.jpg");
+  top: 200px;
+  left: 480px;
+}
+
+.lemonade {
+  background-image: url("https://thetravelbite.com/wp-content/uploads/2021/06/Mint-Lemonade-TheTravelBite.com-16-scaled.jpg");
+  top: 260px;
+  left: 720px;
 }
 
 .setMaxImgSizeShowPage {

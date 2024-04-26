@@ -14,14 +14,16 @@ function FoodDescription({ idForFoodPreview }) {
     // Function to fetch the details of a specific food item
     const fetchFoodItem = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/food/${idForFoodPreview || id}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch food item details");
+        if (idForFoodPreview || id) {
+          const response = await fetch(
+            `http://localhost:3000/api/food/${idForFoodPreview || id}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch food item details");
+          }
+          const data = await response.json();
+          setFoodItem(data);
         }
-        const data = await response.json();
-        setFoodItem(data);
       } catch (error) {
         console.error("Error fetching food item details:", error);
       }
