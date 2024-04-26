@@ -53,7 +53,7 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
   }
 
   return (
-    <main className="w-full bg-white border-2 border-black">
+    <main className="w-3/5 bg-white border-2 border-black ml-auto mr-auto">
       <div className="max-w-4xl mx-auto p-8">
         <h2 className="text-2xl text-center font-bold underline mb-6">
           Write your own review!

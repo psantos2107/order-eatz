@@ -33,14 +33,15 @@ function MenuComponent({
         console.error("Error fetching menu items:", error);
       }
     };
-
     // Call the fetchMenuItems function when the component mounts
     fetchMenuItems();
   }, []); // Run this effect only once when the component mounts
 
   return (
-    <div className={`p-4 ${partOfOrderPage ? "w-full" : ""}`}>
-      <h2 className="text-2xl mb-4">Menu</h2>
+    <div
+      className={`p-4 ${partOfOrderPage ? "w-full" : "w-4/5 ml-auto mr-auto"}`}
+    >
+      <h2 className="text-4xl mb-4">Menu</h2>
       {menuItems.length > 0 ? (
         <ul className="space-y-2 mb-8">
           {slicedMenuItems.map((item) => (
