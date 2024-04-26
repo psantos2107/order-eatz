@@ -40,7 +40,7 @@ function HomeNav() {
                 alt={item.name}
                 style={{
                   width: "200px",
-                  height: "140px",
+                  height: "160px",
                   border: "2px solid black",
                   padding: "20px",
                 }}
