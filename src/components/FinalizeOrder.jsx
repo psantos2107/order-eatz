@@ -22,6 +22,10 @@ const FinalizeOrder = () => {
   }, []);
 
   const submitPayment = async () => {
+
+      if (!cardNumber || !expiryDate || !cvv) {
+        throw new Error("Please fill in all payment details.");
+      }
     setIsLoading(true);
 
     try {
