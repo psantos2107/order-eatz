@@ -12,7 +12,7 @@ const FoodDetails = ({
 }) => {
   return (
     <main className="flex justify-center" style={{ maxHeight: "770px" }}>
-      <section className="w-1/2 border-solid border-black border-2">
+      <section className="w-1/2 border-solid border-black border-2 bg-white">
         <FoodDescription />
         {message && (
           <p className="text-center text-2xl italic mb-2">{message}</p>

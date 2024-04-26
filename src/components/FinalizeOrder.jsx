@@ -22,11 +22,10 @@ const FinalizeOrder = () => {
   }, []);
 
   const submitPayment = async () => {
-
-      if (!cardNumber || !expiryDate || !cvv) {
-        setMsg("Please fill in all payment details.")
-        return
-      }
+    if (!cardNumber || !expiryDate || !cvv) {
+      setMsg("Please fill in all payment details.");
+      return;
+    }
     setIsLoading(true);
 
     try {
@@ -49,7 +48,7 @@ const FinalizeOrder = () => {
         setIsLoading(false);
         setMsg("Payment successful! Thanks for your order.");
       } else {
-        setMsg("Payment failed! Please try again")
+        setMsg("Payment failed! Please try again");
       }
     } catch (error) {
       setIsLoading(false);
@@ -58,7 +57,7 @@ const FinalizeOrder = () => {
   };
 
   return (
-    <div className="text-lg text-center flex pt-80">
+    <div className="text-lg text-center flex pt-80 items-start">
       <div className="w-1/2">
         <DisplayOrder
           orders={order.orders}
@@ -67,7 +66,7 @@ const FinalizeOrder = () => {
           handleDeleteItem={null}
         />
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2 pb-1 bg-white">
         <h2 className="font-bold text-4xl"> Payment Page</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="mt-4">
