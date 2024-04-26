@@ -39,6 +39,12 @@ function Login() {
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
+       <div className="food-animation">
+        <div className="food-item lasagna"></div>
+        <div className="food-item Pad-Thai"></div>
+        <div className="food-item Tiramisu"></div>
+        <div className="food-item Peking-Duck"></div>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <input
           type="text"

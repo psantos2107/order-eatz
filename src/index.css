@@ -62,6 +62,17 @@ body {
   font-size: 1.15rem; /* Adjust the value as needed */
 }
 
+.featured-items-container {
+  position: fixed;
+  top: 80px; /* Adjust as needed */
+  right: 0;
+  margin-right: 4rem; /* Adjust as needed */
+}
+
+.featured-item {
+  margin-bottom: 1.5rem; /* Adjust as needed */
+}
+
 @keyframes fly-in-out {
   0% {
     transform: translateY(-100vh) rotate(0deg);
@@ -96,7 +107,11 @@ body {
   width: 150px; /* Adjust size as needed */
   height: 160px; /* Adjust size as needed */
   background-size: cover;
-  animation: fly-in-out 7s ease-in-out infinite;
+  animation: fly-in-out 12s ease-in-out infinite;
+}
+
+.wrap, .quesadilla, .wings, .cake, .lemonade, .lasagna, .Pad-Thai,.Tiramisu,.Peking-Duck,.Miso-Glazed-Cod,.Pumpkin-Soup,.Whiskey-Smash,.Tomato-Bruschetta {
+  border-radius: 6px; /* Adjust the border-radius value as needed */
 }
 
 .wrap {
@@ -128,6 +143,58 @@ body {
   top: 260px;
   left: 720px;
 }
+
+
+
+.lasagna {
+  background-image: url("https://cdn.loveandlemons.com/wp-content/uploads/2023/12/vegetarian-lasagna-scaled.jpg");
+  top: 20px;
+  left: -680px;
+}
+
+.Pad-Thai {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWC37wND8hC_HSq-umczp5euW9FIHVz3PYz4bHfdCw6Q&s");
+  top: 100px;
+  left: -380px;
+}
+
+.Tiramisu {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzE7arBo-OCZ-gRJL6AuPj65Gky_2esQH6J6OfQcffhw&s");
+  top: 100px;
+  left: 630px;
+}
+
+.Peking-Duck {
+  background-image: url("https://redhousespice.com/wp-content/uploads/2022/01/sliced-peking-duck-with-pancakes-scaled.jpg");
+  top: 20px;
+  left: 900px;
+}
+
+
+.Miso-Glazed-Cod {
+  background-image: url("https://www.justonecookbook.com/wp-content/uploads/2021/02/Miso-Cod-Black-Cod-with-Miso-2-I.jpg");
+  top: 10px;
+  left: -380px;
+}
+
+.Pumpkin-Soup {
+  background-image: url("https://www.cookingclassy.com/wp-content/uploads/2022/10/pumpkin-soup-5.jpg");
+  top: 220px;
+  left: -260px;
+}
+
+.Whiskey-Smash {
+  background-image: url("https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipe%20Ramp%20Up%2F2022-04-Whiskey-Smash%2FWhiskey_Smash-4");
+  top: 200px;
+  left: 600px;
+}
+
+.Tomato-Bruschetta{
+  background-image: url("https://joyfoodsunshine.com/wp-content/uploads/2022/04/tomato-bruschetta-recipe-1.jpg");
+  top: 10px;
+  left: 680px;
+}
+
 
 .setMaxImgSizeShowPage {
   max-height: 400px;

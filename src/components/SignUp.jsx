@@ -53,6 +53,12 @@ function SignUp() {
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold text-center mb-6">Sign Up to Start Ordering</h2>
       {error && <p className="text-red-500 text-center">{error}</p>}
+      <div className="food-animation">
+        <div className="food-item Miso-Glazed-Cod"></div>
+        <div className="food-item Pumpkin-Soup"></div>
+        <div className="food-item Whiskey-Smash"></div>
+        <div className="food-item Tomato-Bruschetta"></div>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <input 
           type="text"
