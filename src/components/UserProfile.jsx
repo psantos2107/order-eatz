@@ -15,30 +15,42 @@ function UserProfile() {
     createdAt: "",
   });
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchUserData() {
-      const token = localStorage.getItem("userToken");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('userToken');
+      const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+      setIsLoading(true);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/users/${userId || "profile"}`,
-          { method: "GET", headers }
-        );
-        if (!response.ok) throw new Error("Failed to fetch user data");
-        const data = await response.json();
-        setUser(data);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId || 'profile'}`, { method: 'GET', headers });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const userData = await response.json();
+        setUser({
+          ...userData,
+          photo: userData.photo ? `http://localhost:3000/${userData.photo}` : 'default-profile-image.png'
+        });
       } catch (err) {
-        setError(err.message);
+        console.error('Error fetching user data:', err);
+        setError(err.message || 'Error fetching user data.');
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
     fetchUserData();
-  }, [userId]);
+  }, [userId, navigate]);
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg text-center">
@@ -80,7 +92,7 @@ function UserProfile() {
         <h3 className="text-lg font-semibold">Account Created On</h3>
         <p className="text-gray-600">{formatDate(user.createdAt)}</p>
       </div>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
+      {error && <p className="text-red-500 mt-4">{error}</p>} {/* Display error if present */}
     </div>
   );
 }

@@ -9,7 +9,7 @@ function EditProfile() {
     name: "",
     lastName: "",
     bio: "",
-    foodInterests: "",
+    foodInterests: [], // This will now be an array
   });
   const [error, setError] = useState("");
 
@@ -20,35 +20,43 @@ function EditProfile() {
         navigate("/login");
         return;
       }
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/users/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (!response.ok) throw new Error("Failed to fetch profile data");
-        const data = await response.json();
-        setProfileData({
-          ...data,
-          foodInterests: data.foodInterests.join(", "), // Assuming the interests are stored as an array
-        });
-      } catch (err) {
-        setError(err.message);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/users/profile`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (!response.ok) {
+        setError("Failed to fetch profile data");
+        return;
       }
+      const data = await response.json();
+      setProfileData({
+        ...data,
+        foodInterests: data.foodInterests || [], // Ensure it's an array
+      });
     };
-
     fetchProfileData();
   }, [navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setProfileData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (name === "foodInterests") {
+      const options = event.target.options;
+      const value = [];
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
+      setProfileData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      setProfileData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -65,16 +73,34 @@ function EditProfile() {
           method: "PATCH",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(profileData),
+          body: JSON.stringify(profileData)
         }
       );
-      if (!response.ok) throw new Error("Failed to update profile");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update profile");
+      }
       navigate("/user-profile");
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!window.confirm("Are you sure you want to delete your account? This cannot be undone.")) return;
+    const token = localStorage.getItem('userToken');
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/users/${profileData._id}`,
+      { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } }
+    );
+    if (!response.ok) {
+      setError('Failed to delete account');
+      return;
+    }
+    localStorage.removeItem('userToken');
+    navigate('/login');
   };
 
   return (
@@ -84,74 +110,35 @@ function EditProfile() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <label className="block">
           Username:
-          <input
-            type="text"
-            name="username"
-            value={profileData.username}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          <input type="text" name="username" value={profileData.username} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label className="block">
           Email:
-          <input
-            type="email"
-            name="email"
-            value={profileData.email}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          <input type="email" name="email" value={profileData.email} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label className="block">
           Name:
-          <input
-            type="text"
-            name="name"
-            value={profileData.name}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          <input type="text" name="name" value={profileData.name} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label className="block">
           Last Name:
-          <input
-            type="text"
-            name="lastName"
-            value={profileData.lastName}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          <input type="text" name="lastName" value={profileData.lastName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label className="block">
           Bio:
-          <textarea
-            name="bio"
-            value={profileData.bio}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          <textarea name="bio" value={profileData.bio} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label className="block">
           Food Interests:
-          <select
-            name="foodInterests"
-            value={profileData.foodInterests}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="">Select your food interest</option>
+          <select name="foodInterests" value={profileData.foodInterests} onChange={handleChange} multiple className="w-full p-2 border border-gray-300 rounded">
             <option value="vegan">Vegan</option>
             <option value="vegetarian">Vegetarian</option>
             <option value="meat_lover">Meat Lover</option>
             <option value="seafood">Seafood</option>
           </select>
         </label>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Save Changes
-        </button>
+        <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Changes</button>
+        <button type="button" onClick={handleDeleteAccount} className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Account</button>
       </form>
     </div>
   );
