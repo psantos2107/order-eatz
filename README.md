@@ -72,6 +72,11 @@ npm install
 | /api/orders/:id         | update         | PATCH          | update          |                   
 | /api/orders/user/:id    | index          | GET           | read            | 
 
+## Unsolved Problems
+
+We were not able to focus and adapt our application to be adjustable for mobile devices. We also were not able to tackle all of our stretch goals, which is outlined in our Trello board. We aim to make our application more robust, incorporating more realistic features similar to a mobile food ordering application.
+
+https://trello.com/b/JPtKdUE6/project-3-trello
 
 ## Contact
 
