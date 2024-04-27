@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CompleteProfile() {
+function CompleteProfile() { // Create a new component named CompleteProfile
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     bio: '',
