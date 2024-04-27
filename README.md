@@ -19,6 +19,36 @@
 * Back-end Deployment: Heroku
 * Front-end Deployment: Netlify
 
+## Installation Instructions
+
+### Backend
+Navigate to the backend rep: https://github.com/psantos2107/order-eatz-backend
+Fork and clone the repo.
+
+Ensure you have a mongoDB account (https://www.mongodb.com/), and connect a database to this repo. Store the database connection URI to your .env file in a variable called MONGODBURI.
+
+In your .env file, also ensure you specify a variable called PORT and a JWT_SECRET.
+
+Run 'npm install' in the command line for this repo to install all necessary node modules
+```
+npm install
+```
+
+Run 'npm run seed' to seed the database with users, exercises, and exercise programs.
+```
+npm run seed
+```
+
+### Frontend
+Fork and clone this specific repo.
+
+Create a .env file, and create a variable called VITE_API_URL, where you will store the URL that will fetch data from the backend.
+
+Run 'npm install' in the command line for this repo to install all necessary node modules and dependences.
+```
+npm install
+```
+
 ## Route Table for Backend
 
 |       **URL**           | **REST Route** | **HTTP Verb** | **CRUD Action** |   
