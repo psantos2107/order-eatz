@@ -8,7 +8,7 @@ function HomeNav() {
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
-    fetch("http://localhost:3000/api/food")
+    fetch(`${import.meta.env.VITE_API_URL}/food`)
       .then((response) => response.json())
       .then((data) => {
         // Get 3 random items from the fetched data

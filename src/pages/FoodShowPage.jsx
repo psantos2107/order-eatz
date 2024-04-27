@@ -10,7 +10,7 @@ const FoodShowPage = () => {
   const [error, setError] = useState("");
   const [dummy, setDummy] = useState(1);
   const token = localStorage.getItem("userToken");
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   const forceUpdate = function () {
     setDummy((dummy) => dummy + 1);

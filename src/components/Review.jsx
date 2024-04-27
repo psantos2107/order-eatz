@@ -10,7 +10,7 @@ const Review = ({
   forceUpdate,
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("userToken");
   let decoded = {};
   if (token) {
@@ -60,32 +60,6 @@ const Review = ({
   }
 
   return (
-    // <>
-    //   {!editMode ? (
-    //     <article key={review._id}>
-    //       <h2>
-    //         <strong>Title: {review.title}</strong>
-    //       </h2>
-    //       <p>{review.content}</p>
-    //       <p>Rating: {review.rating}/5</p>
-    //       <p>By: {review.createdBy.username}</p>
-    //       {decoded?.userId === review.createdBy._id && (
-    //         <>
-    //           <button onClick={handleEdit}>Edit Review</button>
-    //           <button onClick={handleDelete}>Delete Review</button>{" "}
-    //         </>
-    //       )}
-    //     </article>
-    //   ) : (
-    //     <EditReview
-    //       review={review}
-    //       setEditMode={setEditMode}
-    //       setFoodReviews={setFoodReviews}
-    //       forceUpdate={forceUpdate}
-    //       setMessage={setMessage}
-    //     />
-    //   )}
-    // </>
     <>
       {!editMode ? (
         <article

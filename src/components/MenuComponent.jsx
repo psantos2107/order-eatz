@@ -31,7 +31,7 @@ function MenuComponent({
     // Function to fetch menu items
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/food");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/food`);
         if (!response.ok) {
           throw new Error("Failed to fetch menu items");
         }
