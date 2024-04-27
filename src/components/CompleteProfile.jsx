@@ -10,40 +10,38 @@ function CompleteProfile() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState('');
 
+  // Handle changes to the form inputs
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === 'foodInterests') {
-      // Wrap the value inside an array.
-      // If it’s a multiselect, you might need a different approach to handle multiple selected values.
+      // Store food interests as an array
       setProfileData(prev => ({ ...prev, [name]: [value] }));
     } else {
-      // For other inputs, just keep the value as it is.
       setProfileData(prev => ({ ...prev, [name]: value }));
     }
   };
 
-
+  // Handle file selection for profile photo
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('userToken');
-  
     if (!token) {
       setError('Authentication required, please log in.');
       navigate('/login');
       return;
     }
-  
+
+    // Prepare the form data for sending
     const formData = new FormData();
     formData.append('bio', profileData.bio);
     if (selectedFile) {
       formData.append('photo', selectedFile);
     }
-    
-    // Assuming foodInterests is an array
     formData.append('foodInterests', JSON.stringify(profileData.foodInterests));
   
     try {
@@ -54,21 +52,22 @@ function CompleteProfile() {
         },
         body: formData,
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.message || `Failed to update profile with status: ${response.status}`);
         return;
       }
-  
+
       alert('Profile updated successfully.');
-      navigate('/user-profile');  // Redirect to the profile page after successful update.
+      navigate('/user-profile');  // Navigate to the user profile page
     } catch (error) {
       console.error('Failed to update profile:', error);
       setError('Failed to update profile. Please try again later.');
     }
   };
 
+  // Render the form
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold mb-4">Complete Your Profile</h2>
