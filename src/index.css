@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Aludra", sans-serif;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  );
+}
+
+.setMaxImgSizeOrderPage {
+  max-height: 300px;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.welcome-page-container {
+  animation: gradient-animation 5s ease infinite;
+  background: linear-gradient(
+    45deg,
+    rgba(72, 181, 186, 0.2),
+    rgba(72, 181, 186, 0.4),
+    rgba(72, 181, 186, 0.6),
+    rgba(72, 181, 186, 0.8),
+    rgba(72, 181, 186, 1)
+  );
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-text {
+  animation: slide-in 4s ease-out forwards;
+  font-size: 3rem;
+}
+
+.text-lg {
+  font-size: 1.15rem; /* Adjust the value as needed */
+}
+
+.featured-items-container {
+  position: fixed;
+  top: 80px; /* Adjust as needed */
+  right: 0;
+  margin-right: 4rem; /* Adjust as needed */
+}
+
+.featured-item {
+  margin-bottom: 1.5rem; /* Adjust as needed */
+}
+
+@keyframes fly-in-out {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.food-animation {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+}
+
+.food-item {
+  position: absolute;
+  width: 150px; /* Adjust size as needed */
+  height: 160px; /* Adjust size as needed */
+  background-size: cover;
+  animation: fly-in-out 12s ease-in-out infinite;
+}
+
+.wrap,
+.quesadilla,
+.wings,
+.cake,
+.lemonade,
+.lasagna,
+.Pad-Thai,
+.Tiramisu,
+.Peking-Duck,
+.Miso-Glazed-Cod,
+.Pumpkin-Soup,
+.Whiskey-Smash,
+.Tomato-Bruschetta {
+  border-radius: 6px; /* Adjust the border-radius value as needed */
+}
+
+.wrap {
+  background-image: url("https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Buffalo-Chicken-Wrap-3.jpg");
+  top: 20px;
+  left: -140px;
+}
+
+.quesadilla {
+  background-image: url("https://www.isabeleats.com/wp-content/uploads/2023/09/buffalo-chicken-quesadillas-small-6.jpg");
+  top: 100px;
+  left: 60px;
+}
+
+.wings {
+  background-image: url("https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2024-01-buffalo-wings%2Fbuffalo-wings-351");
+  top: 150px;
+  left: 270px;
+}
+
+.cake {
+  background-image: url("https://preppykitchen.com/wp-content/uploads/2022/03/Chocolate-Lava-Cake-Recipe.jpg");
+  top: 200px;
+  left: 480px;
+}
+
+.lemonade {
+  background-image: url("https://thetravelbite.com/wp-content/uploads/2021/06/Mint-Lemonade-TheTravelBite.com-16-scaled.jpg");
+  top: 260px;
+  left: 720px;
+}
+
+.lasagna {
+  background-image: url("https://cdn.loveandlemons.com/wp-content/uploads/2023/12/vegetarian-lasagna-scaled.jpg");
+  top: 20px;
+  left: -680px;
+}
+
+.Pad-Thai {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWC37wND8hC_HSq-umczp5euW9FIHVz3PYz4bHfdCw6Q&s");
+  top: 100px;
+  left: -380px;
+}
+
+.Tiramisu {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzE7arBo-OCZ-gRJL6AuPj65Gky_2esQH6J6OfQcffhw&s");
+  top: 100px;
+  left: 630px;
+}
+
+.Peking-Duck {
+  background-image: url("https://redhousespice.com/wp-content/uploads/2022/01/sliced-peking-duck-with-pancakes-scaled.jpg");
+  top: 20px;
+  left: 900px;
+}
+
+.Miso-Glazed-Cod {
+  background-image: url("https://www.justonecookbook.com/wp-content/uploads/2021/02/Miso-Cod-Black-Cod-with-Miso-2-I.jpg");
+  top: 10px;
+  left: -380px;
+}
+
+.Pumpkin-Soup {
+  background-image: url("https://www.cookingclassy.com/wp-content/uploads/2022/10/pumpkin-soup-5.jpg");
+  top: 220px;
+  left: -260px;
+}
+
+.Whiskey-Smash {
+  background-image: url("https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipe%20Ramp%20Up%2F2022-04-Whiskey-Smash%2FWhiskey_Smash-4");
+  top: 200px;
+  left: 600px;
+}
+
+.Tomato-Bruschetta {
+  background-image: url("https://joyfoodsunshine.com/wp-content/uploads/2022/04/tomato-bruschetta-recipe-1.jpg");
+  top: 10px;
+  left: 680px;
+}
+
+.setMaxImgSizeShowPage {
+  max-height: 400px;
+}
