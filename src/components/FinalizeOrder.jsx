@@ -42,7 +42,6 @@ const FinalizeOrder = () => {
       });
 
       const data = await response.json();
-      console.log("paymemt submitted", data);
 
       if (response.ok) {
         setIsLoading(false);

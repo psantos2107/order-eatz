@@ -22,7 +22,6 @@ const OrderPage = () => {
             },
           });
           const newOrder = await res.json();
-          console.log("Created a new order for a guest", newOrder);
           setOrder(newOrder);
         } else {
           //changed this fetch route entirely so that no id is needed
@@ -46,10 +45,8 @@ const OrderPage = () => {
               },
             });
             const newOrder = await res.json();
-            console.log("Created a new order", newOrder);
             setOrder(newOrder);
           } else {
-            console.log("Opened an existing order", openOrder);
             setOrder(openOrder);
           }
         }

@@ -15,7 +15,6 @@ const Review = ({
   let decoded = {};
   if (token) {
     decoded = jwtDecode(token);
-    console.log(decoded);
   }
 
   function handleDelete() {
@@ -47,7 +46,6 @@ const Review = ({
           foodReviews.filter((foodReview) => foodReview._id !== review._id)
         );
       } catch (error) {
-        console.log(error.message);
         setMessage(error.message);
       }
     }
