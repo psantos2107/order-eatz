@@ -29,7 +29,7 @@ const FinalizeOrder = () => {
     setIsLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("userToken");
       if (!token) {
         throw new Error("Token not found");
       }

@@ -36,7 +36,8 @@ const Header = () => {
 
   return (
     <div className="bg-black py-3 flex justify-between items-center fixed w-full top-0 left-0 z-10" ref={dropdownRef}>
-      <div className="text-white ml-4 text-2xl font-bold">OrderEatz</div>
+      <div className="text-white ml-4 text-2xl font-bold">
+        <img src="https://i.imgur.com/8JuGwUt.jpg" alt="" style={{ width: "410px", height: "60px"}}/></div>
       <div className="flex items-center text-white">
         <Link to="/home" className="mx-4" onClick={() => setShowDropdown(false)}>Home</Link>
         <Link to="/food" className="mx-4" onClick={() => setShowDropdown(false)}>Menu</Link>
