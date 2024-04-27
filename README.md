@@ -1,4 +1,26 @@
-# order-eatz-frontend
+# Order-eatz
+## Description
+
+ OrderEatz is an application that takes pride in delivering its customers delicious food, diverse cuisine, and quality tastes that can make any food enthusiast's mouth water. Established in 2024, order-eatz makes ordering food fun, easy, and seamless! You may go directly to the order page if you want to order your food ASAP, but if you make an account, you may save your orders to reference for next time. You may also upload your own photo to make a more personalized order eatz experience! Look through 71+ items in our menu, leave reviews for your favorite foods, and gush over the wide varied selection at our disposal! 
+
+## Screenshots
+<img width="1790" alt="Screenshot 2024-04-27 at 1 08 09 AM" src="https://github.com/psantos2107/order-eatz-frontend/assets/146752384/22064c3e-ccb9-412a-b569-7661ce837ae7">
+<img width="1782" alt="Screenshot 2024-04-27 at 1 09 32 AM" src="https://github.com/psantos2107/order-eatz-frontend/assets/146752384/9a42dd82-a69a-4479-a114-cf7bb21fe43d">
+<img width="1783" alt="Screenshot 2024-04-27 at 1 08 57 AM" src="https://github.com/psantos2107/order-eatz-frontend/assets/146752384/0a134144-ee19-4385-b18b-010b0dfcadaa">
+<img width="1783" alt="Screenshot 2024-04-27 at 1 08 21 AM" src="https://github.com/psantos2107/order-eatz-frontend/assets/146752384/6282a8d6-b129-4308-9438-dcf93ab2f679">
+
+## Technologies Used
+* FRONT-END: React, scaffolded from Vite
+* STYLING: Tailwind CSS
+* BACK-END: NodeJS
+* Authorization: JSON Web Tokens
+* Back-end Dependencies: bcrypt, cors, dotenv, express, jswonwebtoken, mongoose, multer
+* Front-end Dependencies (non-dev dependencies): axios, jwt-decode, react, react-dom, react-router-dom
+* Back-end Deployment: Heroku
+* Front-end Deployment: Netlify
+
+## Route Table for Backend
+
 |       **URL**           | **REST Route** | **HTTP Verb** | **CRUD Action** |   
 | ----------------------- | -------------- | ------------- | --------------- | 
 | /api/reviews/food/:id   | index          | GET           | read            | 
