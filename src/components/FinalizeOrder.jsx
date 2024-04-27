@@ -29,11 +29,6 @@ const FinalizeOrder = () => {
     setIsLoading(true);
 
     try {
-      const token = localStorage.getItem("userToken");
-      console.log("token", localStorage.getItem("userToken"));
-      if (!token) {
-        throw new Error("Token not found");
-      }
       const response = await fetch(`${URL}/orders/${id}`, {
         method: "PATCH",
         headers: {
