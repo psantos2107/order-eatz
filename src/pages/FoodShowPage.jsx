@@ -10,7 +10,7 @@ const FoodShowPage = () => {
   const [error, setError] = useState("");
   const [dummy, setDummy] = useState(1);
   const token = localStorage.getItem("userToken");
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   const forceUpdate = function () {
     setDummy((dummy) => dummy + 1);
@@ -22,7 +22,6 @@ const FoodShowPage = () => {
       //what if there was a network error?
       const res = await fetch(`${URL}/reviews/food/${id}`);
       const reviewArr = await res.json();
-      console.log(reviewArr);
       setFoodReviews(reviewArr);
     } catch (error) {
       console.error("Fetch error:", error);

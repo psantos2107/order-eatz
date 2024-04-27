@@ -4,7 +4,7 @@ import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
 
 const OrderPage = () => {
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
   const [idForFoodPreview, setIdForFoodPreview] = useState("");
   const [order, setOrder] = useState({});
 
@@ -22,7 +22,6 @@ const OrderPage = () => {
             },
           });
           const newOrder = await res.json();
-          console.log("Created a new order for a guest", newOrder);
           setOrder(newOrder);
         } else {
           //changed this fetch route entirely so that no id is needed
@@ -46,10 +45,8 @@ const OrderPage = () => {
               },
             });
             const newOrder = await res.json();
-            console.log("Created a new order", newOrder);
             setOrder(newOrder);
           } else {
-            console.log("Opened an existing order", openOrder);
             setOrder(openOrder);
           }
         }

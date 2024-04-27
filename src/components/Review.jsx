@@ -10,12 +10,11 @@ const Review = ({
   forceUpdate,
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("userToken");
   let decoded = {};
   if (token) {
     decoded = jwtDecode(token);
-    console.log(decoded);
   }
 
   function handleDelete() {
@@ -47,7 +46,6 @@ const Review = ({
           foodReviews.filter((foodReview) => foodReview._id !== review._id)
         );
       } catch (error) {
-        console.log(error.message);
         setMessage(error.message);
       }
     }
@@ -60,37 +58,11 @@ const Review = ({
   }
 
   return (
-    // <>
-    //   {!editMode ? (
-    //     <article key={review._id}>
-    //       <h2>
-    //         <strong>Title: {review.title}</strong>
-    //       </h2>
-    //       <p>{review.content}</p>
-    //       <p>Rating: {review.rating}/5</p>
-    //       <p>By: {review.createdBy.username}</p>
-    //       {decoded?.userId === review.createdBy._id && (
-    //         <>
-    //           <button onClick={handleEdit}>Edit Review</button>
-    //           <button onClick={handleDelete}>Delete Review</button>{" "}
-    //         </>
-    //       )}
-    //     </article>
-    //   ) : (
-    //     <EditReview
-    //       review={review}
-    //       setEditMode={setEditMode}
-    //       setFoodReviews={setFoodReviews}
-    //       forceUpdate={forceUpdate}
-    //       setMessage={setMessage}
-    //     />
-    //   )}
-    // </>
     <>
       {!editMode ? (
         <article
           key={review._id}
-          className="bg-white max-w-4xl mx-auto my-5 p-5 border rounded-lg shadow-sm"
+          className="bg-slate-200 max-w-2xl mx-auto my-5 p-5 border rounded-lg shadow-sm"
         >
           <h2 className="text-lg font-bold text-gray-800">
             <strong>Title: {review.title}</strong>

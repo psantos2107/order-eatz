@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function FoodDescription({ idForFoodPreview }) {
   const { id } = useParams();
   const [foodItem, setFoodItem] = useState(null);
+  let navigate = useNavigate();
 
   // Function to add food item to order
-  const addToOrder = () => {
-    console.log(`Added ${foodItem.name} to order`);
+  const goToOrderPage = () => {
+    navigate("/order");
   };
 
   useEffect(() => {
     // Function to fetch the details of a specific food item
     const fetchFoodItem = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/food/${idForFoodPreview || id}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch food item details");
+        if (idForFoodPreview || id) {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/food/${idForFoodPreview || id}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch food item details");
+          }
+          const data = await response.json();
+          setFoodItem(data);
         }
-        const data = await response.json();
-        setFoodItem(data);
       } catch (error) {
         console.error("Error fetching food item details:", error);
       }
@@ -32,7 +35,7 @@ function FoodDescription({ idForFoodPreview }) {
   }, [id, idForFoodPreview]); // Run this effect when the component mounts or when the id parameter changes
 
   return (
-    <div className={`p-4`}>
+    <div className={`p-4  bg-white`}>
       <h2 className="text-2xl mb-4 text-center">Food Details</h2>
       {foodItem ? (
         <div className={`flex flex-col justify-center items-center `}>
@@ -55,10 +58,10 @@ function FoodDescription({ idForFoodPreview }) {
           {id ? (
             <div>
               <button
-                onClick={addToOrder}
+                onClick={goToOrderPage}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
-                Add to Order
+                Go to Order Page
               </button>
               <Link
                 to="/food"

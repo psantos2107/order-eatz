@@ -10,7 +10,7 @@ const FinalizeOrder = () => {
   const [msg, setMsg] = useState("");
   const [order, setOrder] = useState({});
   const { id } = useParams();
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function fetchOrder() {
@@ -22,6 +22,10 @@ const FinalizeOrder = () => {
   }, []);
 
   const submitPayment = async () => {
+    if (!cardNumber || !expiryDate || !cvv) {
+      setMsg("Please fill in all payment details.");
+      return;
+    }
     setIsLoading(true);
 
     try {
@@ -29,7 +33,7 @@ const FinalizeOrder = () => {
       if (!token) {
         throw new Error("Token not found");
       }
-      const response = await fetch(`http://localhost:3000/api/orders/${id}`, {
+      const response = await fetch(`${URL}/orders/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
@@ -38,13 +42,12 @@ const FinalizeOrder = () => {
       });
 
       const data = await response.json();
-      console.log("paymemt submitted", data);
 
       if (response.ok) {
         setIsLoading(false);
         setMsg("Payment successful! Thanks for your order.");
       } else {
-        throw new Error(data.message || "Payment processing failed.");
+        setMsg("Payment failed! Please try again");
       }
     } catch (error) {
       setIsLoading(false);
@@ -53,7 +56,7 @@ const FinalizeOrder = () => {
   };
 
   return (
-    <div className="mt-60 text-lg text-center flex">
+    <div className="text-lg text-center flex pt-80 items-start">
       <div className="w-1/2">
         <DisplayOrder
           orders={order.orders}
@@ -62,14 +65,14 @@ const FinalizeOrder = () => {
           handleDeleteItem={null}
         />
       </div>
-      <div className="w-1/2">
-        <h2> Payment Page</h2>
+      <div className="w-1/2 pb-1 bg-white">
+        <h2 className="font-bold text-4xl"> Payment Page</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="mt-4">
             <label htmlFor="card-number">Card Number:</label>
             <input
               type="text"
-              className="ml-2 shadow shadow-blue-500/40"
+              className="ml-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="card-number"
               placeholder="1234 5678 9012 3456"
               value={cardNumber}
@@ -78,10 +81,10 @@ const FinalizeOrder = () => {
             />
           </div>
           <div className="mt-2">
-            <label htmlFor="expiry-date">Expiry Date:</label>
+            <label htmlFor="expiry-date">Expire Date:</label>
             <input
               type="text"
-              className="ml-2 shadow shadow-blue-500/40"
+              className="ml-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="expiry-date"
               placeholder="MM/YY"
               value={expiryDate}
@@ -90,10 +93,10 @@ const FinalizeOrder = () => {
             />
           </div>
           <div className="mt-2">
-            <label htmlFor="cvv">CVV:</label>
+            <label htmlFor="cvv">CVV Number:</label>
             <input
               type="text"
-              className="ml-2 shadow shadow-blue-500/40 "
+              className="ml-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="cvv"
               placeholder="123"
               value={cvv}
@@ -110,7 +113,7 @@ const FinalizeOrder = () => {
             {isLoading ? "Processing..." : "Submit Payment"}
           </button>
           {msg && (
-            <p className="text-center text-lg text-red-600 mt-4">{msg}</p>
+            <p className="text-center text-2xl text-red-600 mt-4">{msg}</p>
           )}
         </form>
       </div>

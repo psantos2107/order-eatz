@@ -5,7 +5,7 @@ const EditReview = ({ review, setEditMode, setMessage, forceUpdate }) => {
   const [inputBody, setBody] = useState(review.content);
   const [inputRating, setRating] = useState(review.rating);
   const [error, setError] = useState("");
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   function handleSubmit(e) {
     e.preventDefault();
