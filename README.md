@@ -19,6 +19,36 @@
 * Back-end Deployment: Heroku
 * Front-end Deployment: Netlify
 
+## Installation Instructions
+
+### Backend
+Navigate to the backend rep: https://github.com/psantos2107/order-eatz-backend
+Fork and clone the repo.
+
+Ensure you have a mongoDB account (https://www.mongodb.com/), and connect a database to this repo. Store the database connection URI to your .env file in a variable called MONGODBURI.
+
+In your .env file, also ensure you specify a variable called PORT and a JWT_SECRET.
+
+Run 'npm install' in the command line for this repo to install all necessary node modules
+```
+npm install
+```
+
+Run 'npm run seed' to seed the database with users, exercises, and exercise programs.
+```
+npm run seed
+```
+
+### Frontend
+Fork and clone this specific repo.
+
+Create a .env file, and create a variable called VITE_API_URL, where you will store the URL that will fetch data from the backend.
+
+Run 'npm install' in the command line for this repo to install all necessary node modules and dependences.
+```
+npm install
+```
+
 ## Route Table for Backend
 
 |       **URL**           | **REST Route** | **HTTP Verb** | **CRUD Action** |   
@@ -41,3 +71,36 @@
 | /api/orders/            | create         | POST          | create          |   
 | /api/orders/:id         | update         | PATCH          | update          |                   
 | /api/orders/user/:id    | index          | GET           | read            | 
+
+## Unsolved Problems and Next Steps
+
+We were not able to focus and adapt our application to be adjustable for mobile devices. We also were not able to tackle all of our stretch goals, which is outlined in our Trello board. We aim to make our application more robust, incorporating more realistic features similar to a mobile food ordering application.
+
+Next Steps: 
+* More robustly implement "delivery time" simulations
+* Permit users to obtain their order history
+* Permit users to access other users' profiles via links
+* More of the stretch goals outlined in Trello
+
+https://trello.com/b/JPtKdUE6/project-3-trello
+
+## Contact
+
+For any inquiries or feedback, please contact the project maintainers:
+
+- **Paul Santos, Evonte Bennett, Sinan Yilmaz, Brandon Alvarado**
+- Emails:@, @Evontebennett14@gmail.com,@snn.ylmz9804@gmail.com,@
+
+Project Link: https://order-eatz.netlify.app/
+
+Feel free to reach out if you have questions, suggestions, or just want to chat!
+
+
+## Acknowledgements
+
+- https://imgur.com/ : For image URL retrieval
+
+- https://chat.openai.com/ : For Questions & debugging
+
+- https://www.google.com/ : For all database images
+
