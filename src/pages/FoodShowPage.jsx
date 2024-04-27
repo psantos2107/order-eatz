@@ -22,7 +22,6 @@ const FoodShowPage = () => {
       //what if there was a network error?
       const res = await fetch(`${URL}/reviews/food/${id}`);
       const reviewArr = await res.json();
-      console.log(reviewArr);
       setFoodReviews(reviewArr);
     } catch (error) {
       console.error("Fetch error:", error);

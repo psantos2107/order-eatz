@@ -54,7 +54,7 @@ function CompleteProfile() {
       }
 
       const data = await response.json();
-      console.log("Profile updated successfully:", data);
+      "Profile updated successfully:", data;
       navigate("/user-profile");
     } catch (error) {
       console.error("Failed to update profile:", error);
