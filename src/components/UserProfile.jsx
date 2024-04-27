@@ -55,6 +55,7 @@ function UserProfile() {
     // Loading state indicator
     return <div>Loading...</div>;
   }
+  
 
   // JSX to render user profile information
   return (
