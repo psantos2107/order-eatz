@@ -29,7 +29,7 @@ function CompleteProfile() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const token = localStorage.getItem('userToken');
+    const token = ;
   
     if (!token) {
       setError('Authentication required, please log in.');
