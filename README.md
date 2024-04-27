@@ -89,7 +89,7 @@ https://trello.com/b/JPtKdUE6/project-3-trello
 For any inquiries or feedback, please contact the project maintainers:
 
 - **Paul Santos, Evonte Bennett, Sinan Yilmaz, Brandon Alvarado**
-- Emails:@paul.santos2107@gmail.com (Paul S), @Evontebennett14@gmail.com (Evonte B) ,@snn.ylmz9804@gmail.com (Sinan Y), @
+- Emails:@paul.santos2107@gmail.com (Paul S), @Evontebennett14@gmail.com (Evonte B) ,@snn.ylmz9804@gmail.com (Sinan Y), @brandon.alvarado9991@gmail.com (Brandon A)
 
 Project Link: https://order-eatz.netlify.app/
 
