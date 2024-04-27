@@ -89,12 +89,16 @@ https://trello.com/b/JPtKdUE6/project-3-trello
 For any inquiries or feedback, please contact the project maintainers:
 
 - **Paul Santos, Evonte Bennett, Sinan Yilmaz, Brandon Alvarado**
-- Emails:@, @Evontebennett14@gmail.com,@snn.ylmz9804@gmail.com,@
+- Emails:@paul.santos2107@gmail.com (Paul S), @Evontebennett14@gmail.com (Evonte B) ,@snn.ylmz9804@gmail.com (Sinan Y), @
 
 Project Link: https://order-eatz.netlify.app/
 
 Feel free to reach out if you have questions, suggestions, or just want to chat!
 
+## View Our Previous Projects!
+Paul Santos' Previous Projects: 
+* Pokemon Trivia Game: https://psantos2107.github.io/pokemon-trivia-game/ (Github: https://github.com/psantos2107/pokemon-trivia-game)
+* SweatShare Exercise Program Application: https://sweatshare-6d68a7df5043.herokuapp.com/ (Github: https://github.com/psantos2107/sweat-share)
 
 ## Acknowledgements
 
