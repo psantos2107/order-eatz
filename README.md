@@ -72,9 +72,15 @@ npm install
 | /api/orders/:id         | update         | PATCH          | update          |                   
 | /api/orders/user/:id    | index          | GET           | read            | 
 
-## Unsolved Problems
+## Unsolved Problems and Next Steps
 
 We were not able to focus and adapt our application to be adjustable for mobile devices. We also were not able to tackle all of our stretch goals, which is outlined in our Trello board. We aim to make our application more robust, incorporating more realistic features similar to a mobile food ordering application.
+
+Next Steps: 
+* More robustly implement "delivery time" simulations
+* Permit users to obtain their order history
+* Permit users to access other users' profiles via links
+* More of the stretch goals outlined in Trello
 
 https://trello.com/b/JPtKdUE6/project-3-trello
 
