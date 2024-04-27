@@ -22,21 +22,18 @@ function EditProfile() {
       }
       try {
         const response = await fetch(`http://localhost:3000/api/users/profile`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) throw new Error('Failed to fetch profile data');
         const data = await response.json();
         setProfileData({
           ...data,
-          foodInterests: data.foodInterests.join(', ') // Assuming the interests are stored as an array
+          foodInterests: data.foodInterests.join(', ')
         });
       } catch (err) {
         setError(err.message);
       }
     };
-
     fetchProfileData();
   }, [navigate]);
 
@@ -55,19 +52,52 @@ function EditProfile() {
       setError('You must be logged in to edit your profile.');
       return;
     }
+  
+    const formData = new FormData();
+    Object.entries(profileData).forEach(([key, value]) => {
+      if (key === 'foodInterests') {
+        // Assuming food interests are submitted as a string of comma-separated values
+        const interestsArray = value.split(',').map(interest => interest.trim()); // Split and trim the string to form an array
+        formData.append(key, JSON.stringify(interestsArray)); // Convert the array into a JSON string
+      } else {
+        formData.append(key, value);
+      }
+    });
+  
     try {
-      const response = await fetch(`http://localhost:3000/api/users/profile/update`, {
+      const response = await fetch('http://localhost:3000/api/users/profile/update', {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(profileData)
+        body: formData
       });
-      if (!response.ok) throw new Error('Failed to update profile');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update profile');
+      }
       navigate('/user-profile');
     } catch (err) {
       setError(err.message);
+    }
+  };
+  
+
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This cannot be undone.");
+    if (confirmDelete) {
+      const token = localStorage.getItem('userToken');
+      try {
+        const response = await fetch(`http://localhost:3000/api/users/${profileData._id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!response.ok) throw new Error('Failed to delete account');
+        localStorage.removeItem('userToken');
+        navigate('/login');
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
@@ -108,6 +138,9 @@ function EditProfile() {
         </label>
         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Save Changes
+        </button>
+        <button type="button" onClick={handleDeleteAccount} className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          Delete Account
         </button>
       </form>
     </div>
