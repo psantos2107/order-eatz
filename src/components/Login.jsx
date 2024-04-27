@@ -1,69 +1,80 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // Custom hook from the AuthContext for authentication state
+import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
-  // State for login credentials, initialized to empty strings
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  // State to manage error messages
   const [error, setError] = useState("");
-  // useNavigate hook to programmatically navigate user after login
   const navigate = useNavigate();
-  // Access setIsAuthenticated function from auth context to update auth state
   const { setIsAuthenticated } = useAuth();
 
-  // Function to update state with form input changes
   const handleChange = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    setError(""); // Reset any previous error messages
+    event.preventDefault();
+    setError("");
 
     try {
-      // Attempt to login via API call
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`, // Fetches from environment-specific API URL
+        `${import.meta.env.VITE_API_URL}/auth/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(credentials), // Send credentials as JSON
+          body: JSON.stringify(credentials),
         }
       );
 
       if (!response.ok) {
-        // If response is not ok, throw an error with the message from the server
         const errorData = await response.json();
         throw new Error(errorData.message || "Login failed");
       }
 
-      // Parse JSON response and store token in local storage
       const data = await response.json();
       localStorage.setItem("userToken", data.token);
-      setIsAuthenticated(true); // Update authentication state to true
-      navigate("/home"); // Navigate to home page after successful login
+      setIsAuthenticated(true);
+      navigate("/home");
     } catch (error) {
-      setError(error.message); // Set error state to display the error message
+      setError(error.message);
     }
   };
 
-  // JSX to render the login form
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
-      {/* Placeholder for potential food animation */}
       <div className="food-animation">
         <div className="food-item lasagna"></div>
-        {/* ... more food items ... */}
+        <div className="food-item Pad-Thai"></div>
+        <div className="food-item Tiramisu"></div>
+        <div className="food-item Peking-Duck"></div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Input fields for username and password */}
-        {/* Error message display */}
-        {/* Submit button */}
+        <input
+          type="text"
+          name="username"
+          value={credentials.username}
+          onChange={handleChange}
+          placeholder="Username or Email"
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <input
+          type="password"
+          name="password"
+          value={credentials.password}
+          onChange={handleChange}
+          placeholder="Password"
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Log In
+        </button>
       </form>
     </div>
   );

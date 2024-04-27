@@ -2,27 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
-  const navigate = useNavigate(); // Provides navigation via imperative API
-
-  // State for storing and updating the user profile data
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     username: "",
     email: "",
     name: "",
     lastName: "",
     bio: "",
-    foodInterests: [], // Array to store multiple selections
+    foodInterests: [], // This will now be an array
   });
-
-  // State to store error messages
   const [error, setError] = useState("");
 
-  // Effect hook to fetch profile data when component mounts
   useEffect(() => {
     const fetchProfileData = async () => {
       const token = localStorage.getItem("userToken");
       if (!token) {
-        navigate("/login"); // Redirect to login if no token found
+        navigate("/login");
         return;
       }
       const response = await fetch(
@@ -36,13 +31,12 @@ function EditProfile() {
       const data = await response.json();
       setProfileData({
         ...data,
-        foodInterests: data.foodInterests || [], // Ensure it's an array even if null
+        foodInterests: data.foodInterests || [], // Ensure it's an array
       });
     };
     fetchProfileData();
   }, [navigate]);
 
-  // Handler for form inputs changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "foodInterests") {
@@ -65,7 +59,6 @@ function EditProfile() {
     }
   };
 
-  // Handler for submitting the profile updates
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("userToken");
@@ -89,13 +82,12 @@ function EditProfile() {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to update profile");
       }
-      navigate("/user-profile"); // Navigate to profile page after successful update
+      navigate("/user-profile");
     } catch (err) {
-      setError(err.message); // Set error message from exception
+      setError(err.message);
     }
   };
 
-  // Handler for account deletion
   const handleDeleteAccount = async () => {
     if (!window.confirm("Are you sure you want to delete your account? This cannot be undone.")) return;
     const token = localStorage.getItem('userToken');
@@ -108,17 +100,43 @@ function EditProfile() {
       return;
     }
     localStorage.removeItem('userToken');
-    navigate('/login'); // Redirect to login page after account deletion
+    navigate('/login');
   };
 
-  // JSX for rendering the component
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold mb-4">Edit Your Profile</h2>
-      {error && <p className="text-red-500">{error}</p>} // Display error message if present
+      {error && <p className="text-red-500">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Form fields for updating profile */}
-        {/* Various input fields for user profile data */}
+        <label className="block">
+          Username:
+          <input type="text" name="username" value={profileData.username} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+        </label>
+        <label className="block">
+          Email:
+          <input type="email" name="email" value={profileData.email} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+        </label>
+        <label className="block">
+          Name:
+          <input type="text" name="name" value={profileData.name} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+        </label>
+        <label className="block">
+          Last Name:
+          <input type="text" name="lastName" value={profileData.lastName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+        </label>
+        <label className="block">
+          Bio:
+          <textarea name="bio" value={profileData.bio} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />
+        </label>
+        <label className="block">
+          Food Interests:
+          <select name="foodInterests" value={profileData.foodInterests} onChange={handleChange} multiple className="w-full p-2 border border-gray-300 rounded">
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="meat_lover">Meat Lover</option>
+            <option value="seafood">Seafood</option>
+          </select>
+        </label>
         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Changes</button>
         <button type="button" onClick={handleDeleteAccount} className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Account</button>
       </form>
