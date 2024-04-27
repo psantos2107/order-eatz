@@ -41,3 +41,25 @@
 | /api/orders/            | create         | POST          | create          |   
 | /api/orders/:id         | update         | PATCH          | update          |                   
 | /api/orders/user/:id    | index          | GET           | read            | 
+
+
+## Contact
+
+For any inquiries or feedback, please contact the project maintainers:
+
+- **Paul Santos, Evonte Bennett, Sinan Yilmaz, Brandon Alvarado**
+- Emails:@, @Evontebennett14@gmail.com,@snn.ylmz9804@gmail.com,@
+
+Project Link: https://order-eatz.netlify.app/
+
+Feel free to reach out if you have questions, suggestions, or just want to chat!
+
+
+## Acknowledgements
+
+- https://imgur.com/ : For image URL retrieval
+
+- https://chat.openai.com/ : For Questions & debugging
+
+- https://www.google.com/ : For all database images
+
