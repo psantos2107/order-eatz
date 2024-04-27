@@ -103,22 +103,6 @@ const OrderPage = () => {
     deleteFromOrder();
   }
 
-  const deleteEntireOrder = (id) => {
-    const orderID = id;
-    async function deleteOrder() {
-      try {
-        await fetch(`${URL}/orders/${orderID}`, {
-          method: "DELETE",
-        });
-        navigate("/home");
-      } catch (err) {
-        //maybe add error handling here if we have time.
-        console.log(err.message);
-      }
-    }
-    deleteOrder();
-  };
-
   return (
     <div className="w-full py-24 flex space-evenly">
       <div className="overflow-scroll w-1/2" style={{ maxHeight: "800px" }}>
