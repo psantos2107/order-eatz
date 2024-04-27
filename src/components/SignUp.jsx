@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    name: '',
-    lastName: ''
+    username: "",
+    email: "",
+    password: "",
+    name: "",
+    lastName: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -19,31 +19,42 @@ function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');
+    setError("");
 
     // Validation of form data
-    if (!formData.username || !formData.email || !formData.password || !formData.name || !formData.lastName) {
-      setError('Please fill in all fields');
+    if (
+      !formData.username ||
+      !formData.email ||
+      !formData.password ||
+      !formData.name ||
+      !formData.lastName
+    ) {
+      setError("Please fill in all fields");
       return;
     }
 
     // API call to register the user
     try {
-      const response = await fetch('http://localhost:3000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          data.message || `HTTP error! status: ${response.status}`
+        );
       }
 
       // If registration is successful
       const data = await response.json();
-      localStorage.setItem('userToken', data.token);
-      navigate('/complete-profile'); // Redirect to complete profile after successful signup
+      localStorage.setItem("userToken", data.token);
+      navigate("/complete-profile"); // Redirect to complete profile after successful signup
     } catch (error) {
       setError(error.message);
     }
@@ -51,7 +62,9 @@ function SignUp() {
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4 py-8 bg-white shadow-lg rounded-lg">
-      <h2 className="text-xl font-bold text-center mb-6">Sign Up to Start Ordering</h2>
+      <h2 className="text-xl font-bold text-center mb-6">
+        Sign Up to Start Ordering
+      </h2>
       {error && <p className="text-red-500 text-center">{error}</p>}
       <div className="food-animation">
         <div className="food-item Miso-Glazed-Cod"></div>
@@ -60,7 +73,7 @@ function SignUp() {
         <div className="food-item Tomato-Bruschetta"></div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <input 
+        <input
           type="text"
           name="username"
           value={formData.username}
@@ -69,7 +82,7 @@ function SignUp() {
           className="w-full p-2 border border-gray-300 rounded"
           required
         />
-        <input 
+        <input
           type="email"
           name="email"
           value={formData.email}
@@ -78,7 +91,7 @@ function SignUp() {
           className="w-full p-2 border border-gray-300 rounded"
           required
         />
-        <input 
+        <input
           type="password"
           name="password"
           value={formData.password}
@@ -87,7 +100,7 @@ function SignUp() {
           className="w-full p-2 border border-gray-300 rounded"
           required
         />
-        <input 
+        <input
           type="text"
           name="name"
           value={formData.name}
@@ -96,7 +109,7 @@ function SignUp() {
           className="w-full p-2 border border-gray-300 rounded"
           required
         />
-        <input 
+        <input
           type="text"
           name="lastName"
           value={formData.lastName}
@@ -105,7 +118,7 @@ function SignUp() {
           className="w-full p-2 border border-gray-300 rounded"
           required
         />
-        <button 
+        <button
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >

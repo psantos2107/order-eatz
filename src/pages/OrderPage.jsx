@@ -4,7 +4,7 @@ import DisplayOrder from "../components/DisplayOrder";
 import FoodDescription from "../components/FoodDescription";
 
 const OrderPage = () => {
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
   const [idForFoodPreview, setIdForFoodPreview] = useState("");
   const [order, setOrder] = useState({});
 

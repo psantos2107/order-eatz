@@ -17,7 +17,7 @@ function FoodDescription({ idForFoodPreview }) {
       try {
         if (idForFoodPreview || id) {
           const response = await fetch(
-            `http://localhost:3000/api/food/${idForFoodPreview || id}`
+            `${import.meta.env.VITE_API_URL}/food/${idForFoodPreview || id}`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch food item details");

@@ -6,7 +6,7 @@ const CreateReview = ({ id, setMessage, forceUpdate }) => {
   const [inputRating, setRating] = useState("4");
   const [error, setError] = useState("");
   const foodID = id;
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   function handleSubmit(e) {
     e.preventDefault();

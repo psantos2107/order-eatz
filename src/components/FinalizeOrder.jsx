@@ -10,7 +10,7 @@ const FinalizeOrder = () => {
   const [msg, setMsg] = useState("");
   const [order, setOrder] = useState({});
   const { id } = useParams();
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function fetchOrder() {
@@ -33,7 +33,7 @@ const FinalizeOrder = () => {
       if (!token) {
         throw new Error("Token not found");
       }
-      const response = await fetch(`http://localhost:3000/api/orders/${id}`, {
+      const response = await fetch(`${URL}/orders/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",

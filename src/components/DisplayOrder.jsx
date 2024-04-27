@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const DisplayOrder = ({ orders, totalPrice, handleDeleteItem, orderID }) => {
-  const URL = "http://localhost:3000/api";
+  const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const deleteEntireOrder = (id) => {
